@@ -3,11 +3,11 @@ session_start();
 
 // Validar sesión
 if (!isset($_SESSION['id_usuario'])) {
-    die("❌ No has iniciado sesión");
+    die(" No has iniciado sesión");
 }
 
 if (!isset($_SESSION['id_residente'])) {
-    die("❌ No has seleccionado un residente");
+    die(" No has seleccionado un residente");
 }
 
 $id_residente = $_SESSION['id_residente'];

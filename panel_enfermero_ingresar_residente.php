@@ -5,11 +5,17 @@ if (!isset($_SESSION['id_usuario'])) {
     die(" No has iniciado sesión");
 }
 
-// Conexión a la base de datos
-$conexion = new mysqli("localhost", "root", "", "raizdigital");
 
+if (!isset($_POST['id_residente'])) {
+    die(" No se recibió el ID del residente");
+}
 $id_residente = $_POST['id_residente'];
 
+// Conexión a la base de datos
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
 // Verificar residente
 $sql = "SELECT * FROM residentes WHERE id_residente = '$id_residente'";
 $result = $conexion->query($sql);
