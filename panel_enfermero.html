@@ -51,9 +51,9 @@ if (!isset($_SESSION['id_usuario'])) {
 </form>
 <h2>Ingresar a Residente</h2>
 
-<form action="panel_enfermero_ingresar_residente.php" method="POST">
+<form action='panel_enfermero_ingresar_residente.php' method='POST' target='_blank'>
 
-    <input type="text" name="id_residente" placeholder="ID o Nombre del residente" required>
+    <input type="text" name="busqueda" placeholder="ID o Nombre del residente" required>
 
     <button type="submit">Ingresar</button>
 

@@ -1,14 +1,11 @@
 <?php
 session_start();
 
-// Validar sesión
-if (!isset($_SESSION['id_usuario'])) {
-    die(" No has iniciado sesión");
-}
-
 if (!isset($_SESSION['id_residente'])) {
     die(" No has seleccionado un residente");
 }
+
+echo "Residente ID: " . $_SESSION['id_residente'];
 
 $id_residente = $_SESSION['id_residente'];
 ?>
