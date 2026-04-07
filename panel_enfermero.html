@@ -1,0 +1,54 @@
+<?php
+session_start();
+
+// Verificar sesión
+if (!isset($_SESSION['id_usuario'])) {
+    die(" No has iniciado sesión");
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Enfermero</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Panel del Enfermero</h1>
+
+<h2>Registrar Nuevo Residente</h2>
+
+<form action="panel_enfermero_crear_residente.php" method="POST">
+
+    <input type="text" name="nombre" placeholder="Nombre" required>
+
+    <input type="number" name="edad" placeholder="Edad" required>
+
+    <input type="text" name="diagnostico" placeholder="Diagnóstico" required>
+
+    <input type="text" name="habitacion" placeholder="Habitación" required>
+
+    <input type="number" name="id_familiar" placeholder="ID Familiar" required>
+
+    <button type="submit">Registrar</button>
+
+</form>
+
+</body>
+</html>

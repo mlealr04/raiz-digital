@@ -1,0 +1,25 @@
+<?php
+// Conexión a la base de datos
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
+
+$busqueda = $_POST['busqueda'];
+
+// Consulta para buscar por nombre o ID
+$sql = "SELECT * FROM residentes WHERE id_residente = '$busqueda' OR nombre LIKE '%$busqueda%'";
+
+$resultado = $conexion->query($sql);
+
+if ($resultado->num_rows > 0) {
+    echo "<h2>Resultados de la búsqueda:</h2>";
+    echo "<table border='1'>";
+    echo "<tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Diagnóstico</th><th>Habitación</th><th>Familiar ID</th></tr>";
+    while ($residente = $resultado->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $residente['id_residente'] . "</td>";
+        echo "<td>" . $residente['nombre'] . "</td>";
+        echo "<td>" . $residente['edad'] . "</td>";
+        echo "<td>" . $residente['diagnostico'] . "</td>";
