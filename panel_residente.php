@@ -35,15 +35,15 @@ $id_residente = $_SESSION['id_residente'];
 
 <h2>Opciones</h2>
 
-<a href="signos_vitales.php">
+<a href="signos_vitales.html">
     <button> Signos Vitales</button>
 </a>
 
-<a href="inventario.php">
+<a href="inventario.html">
     <button> Inventario</button>
 </a>
 
-<a href="gestion_familiar.php">
+<a href="gestion_familiar.html">
     <button> Gestión Familiar</button>
 </a>
 
