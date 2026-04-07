@@ -12,27 +12,40 @@ if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
-// Obtener ID del residente
-$id_residente = $_POST['id_residente'];
+$busqueda = $_POST['busqueda'];
 
-//  Verificar que el residente exista
-$sql = "SELECT * FROM residentes WHERE id_residente = '$id_residente'";
+// si número o texto
+if (is_numeric($busqueda)) {
+    $sql = "SELECT * FROM residentes WHERE id_residente = '$busqueda'";
+} else {
+    $sql = "SELECT * FROM residentes WHERE nombre LIKE '%$busqueda%'";
+}
+
 $result = $conexion->query($sql);
 
 if ($result->num_rows > 0) {
 
-    // GUARDAR SESIÓN DEL RESIDENTE
-    $_SESSION['id_residente'] = $id_residente;
+    echo "<h2>Resultados:</h2>";
 
-    echo "
-    <h2> Residente seleccionado correctamente</h2>
-    <a href='panel_residente.php'>
-        <button>Ir al panel del residente</button>
-    </a>
-    ";
+    while ($row = $result->fetch_assoc()) {
+
+        echo "
+        <div style='margin-bottom:20px; border:1px solid #c19999; padding:10px;'>
+
+            <p><strong>ID:</strong> {$row['id_residente']}</p>
+            <p><strong>Nombre:</strong> {$row['nombre']}</p>
+
+            <form action='panel_enfermero_ingresar_residente.php' method='POST'>
+                <input type='hidden' name='id_residente' value='{$row['id_residente']}'>
+                <button type='submit'>Seleccionar</button>
+            </form>
+
+        </div>
+        ";
+    }
 
 } else {
-    echo " El residente NO existe";
+    echo " No se encontraron residentes";
 }
 
 $conexion->close();
