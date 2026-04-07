@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Signos Vitales</title>
+</head>
+<body>
+
+<h1>Signos Vitales</h1>
+
+<form id="formSignos">
+    <input name="presion" placeholder="Presión">
+    <input name="temperatura" placeholder="Temperatura">
+    <input name="frecuencia_cardiaca" placeholder="FC">
+    <input name="frecuencia_respiratoria" placeholder="FR">
+    <input name="oxigeno" placeholder="Oxígeno">
+    <input name="glucosa" placeholder="Glucosa">
+    <input name="observaciones" placeholder="Observaciones">
+    <button type="submit">Guardar</button>
+</form>
+
+<h2>Historial</h2>
+<table border="1" id="tabla">
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Hora</th>
+<th>Presión</th>
+<th>Temp</th>
+<th>FC</th>
+<th>FR</th>
+<th>O2</th>
+<th>Glucosa</th>
+<th>Obs</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<script>
+//  GUARDAR
+document.getElementById("formSignos").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch("signos_vitales.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Guardado");
+        cargarHistorial();
+    });
+});
+
+//  CARGAR HISTORIAL
+function cargarHistorial() {
+    fetch("signos_vitales.php")
+    .then(res => res.json())
+    .then(data => {
+
+        const tbody = document.querySelector("#tabla tbody");
+        tbody.innerHTML = "";
+
+        data.forEach(row => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${row.fecha}</td>
+                    <td>${row.hora}</td>
+                    <td>${row.presion}</td>
+                    <td>${row.temperatura}</td>
+                    <td>${row.frecuencia_cardiaca}</td>
+                    <td>${row.frecuencia_respiratoria}</td>
+                    <td>${row.oxigeno}</td>
+                    <td>${row.glucosa}</td>
+                    <td>${row.observaciones}</td>
+                </tr>
+            `;
+        });
+    });
+}
+
+// cargar al inicio
+cargarHistorial();
+</script>
+
+</body>
+</html>
