@@ -49,6 +49,14 @@ if (!isset($_SESSION['id_usuario'])) {
     <button type="submit">Registrar</button>
 
 </form>
+<h2>Ingresar a Residente</h2>
 
+<form action="panel_enfermero_ingresar_residente.php" method="POST">
+
+    <input type="number" name="id_residente" placeholder="ID del Residente" required>
+
+    <button type="submit">Ingresar</button>
+
+</form>
 </body>
 </html>
