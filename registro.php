@@ -11,7 +11,7 @@ $correo = $_POST['correo'];
 $password = $_POST['password'];
 $rol = $_POST['rol'];
 
-// SIN HASH (como tú quieres)
+// SIN HASH 
 $sqlUsuario = "INSERT INTO usuarios (nombre, correo, contraseña, rol)
 VALUES ('$nombre', '$correo', '$password', '$rol')";
 

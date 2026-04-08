@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -16,22 +15,25 @@ if ($conexion->connect_error) {
     exit();
 }
 
-// buscar residente
-$sql = "SELECT id_residente FROM familiares WHERE id_usuario = '$id_usuario'";
+//  JOIN para obtener TODOS los residentes del familiar
+$sql = "SELECT r.id_residente, r.nombre 
+        FROM residentes r
+        INNER JOIN familiares f ON r.id_familiar = f.id_familiar
+        WHERE f.id_usuario = '$id_usuario'";
+
 $result = $conexion->query($sql);
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-
-    $_SESSION['id_residente'] = $row['id_residente'];
-
-    echo json_encode([
-        "success" => true,
-        "id_residente" => $row['id_residente']
-    ]);
-} else {
-    echo json_encode(["error" => "Sin residente"]);
+if (!$result) {
+    die("Error SQL: " . $conexion->error);
 }
+
+$data = [];
+
+while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
+}
+
+echo json_encode($data);
 
 $conexion->close();
 ?>

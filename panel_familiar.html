@@ -6,31 +6,51 @@
 </head>
 <body>
 
-<h1> Panel Familiar</h1>
+<h1> Selecciona un residente</h1>
 
-<p id="residente"></p>
-
-<button onclick="irHistorial()"> Ver historial médico</button>
+<div id="lista"></div>
 
 <script>
 
-//  CARGAR DATOS DEL FAMILIAR
+//  cargar residentes
 fetch("panel_familiar.php")
 .then(res => res.json())
 .then(data => {
 
-    if (data.error) {
-        document.body.innerHTML = data.error;
+    const cont = document.getElementById("lista");
+
+    if (data.length === 0) {
+        cont.innerHTML = "No tienes residentes asignados";
         return;
     }
 
-    document.getElementById("residente").innerText =
-        "Residente asignado: " + data.id_residente;
+    data.forEach(r => {
+        cont.innerHTML += `
+            <div style="margin:10px; padding:10px; border:1px solid black;">
+                <p>${r.nombre}</p>
+                <button onclick="seleccionar(${r.id_residente})">
+                    Ver historial
+                </button>
+            </div>
+        `;
+    });
+
 });
 
-//  IR AL HISTORIAL
-function irHistorial() {
-    window.location.href = "historial_familiar.html";
+//  guardar selección
+function seleccionar(id) {
+
+    fetch("seleccionar_residente.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "id_residente=" + id
+    })
+    .then(() => {
+        window.location.href = "historial_familiar.html";
+    });
+
 }
 
 </script>
