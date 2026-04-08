@@ -1,4 +1,7 @@
 <?php
+var_dump($_SESSION);
+die();
+
 session_start();
 
 if (!isset($_SESSION['id_residente'])) {
