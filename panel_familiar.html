@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Familiar</title>
+</head>
+<body>
+
+<h1> Panel Familiar</h1>
+
+<p id="residente"></p>
+
+<button onclick="irHistorial()"> Ver historial médico</button>
+
+<script>
+
+//  CARGAR DATOS DEL FAMILIAR
+fetch("panel_familiar.php")
+.then(res => res.json())
+.then(data => {
+
+    if (data.error) {
+        document.body.innerHTML = data.error;
+        return;
+    }
+
+    document.getElementById("residente").innerText =
+        "Residente asignado: " + data.id_residente;
+});
+
+//  IR AL HISTORIAL
+function irHistorial() {
+    window.location.href = "historial_familiar.html";
+}
+
+</script>
+
+</body>
+</html>

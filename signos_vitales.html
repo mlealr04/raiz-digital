@@ -11,13 +11,14 @@
 <form id="formSignos">
     <input name="presion" placeholder="Presión">
     <input name="temperatura" placeholder="Temperatura">
-    <input name="frecuencia_cardiaca" placeholder="FC">
-    <input name="frecuencia_respiratoria" placeholder="FR">
+    <input name="frecuencia_cardiaca" placeholder="Frecuencia Cardiaca">
+    <input name="frecuencia_respiratoria" placeholder="Frecuencia Respiratoria">
     <input name="oxigeno" placeholder="Oxígeno">
     <input name="glucosa" placeholder="Glucosa">
     <input name="observaciones" placeholder="Observaciones">
     <button type="submit">Guardar</button>
 </form>
+<a href="panel_residente.php"> Regresar al menú</a>
 
 <h2>Historial</h2>
 <table border="1" id="tabla">
@@ -27,9 +28,9 @@
 <th>Hora</th>
 <th>Presión</th>
 <th>Temp</th>
-<th>FC</th>
-<th>FR</th>
-<th>O2</th>
+<th>frecuencia Cardiaca</th>
+<th>Frecuencia Respiratoria</th>
+<th>Oxigeno</th>
 <th>Glucosa</th>
 <th>Obs</th>
 </tr>
@@ -84,6 +85,7 @@ function cargarHistorial() {
 
 // cargar al inicio
 cargarHistorial();
+
 </script>
 
 </body>

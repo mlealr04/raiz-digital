@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Historial Médico</title>
+
+<style>
+    body {
+        font-family: Arial;
+        margin: 40px;
+    }
+    button {
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+    table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        padding: 8px;
+        text-align: center;
+    }
+</style>
+
+</head>
+<body>
+
+<!--  REGRESAR -->
+<button onclick="window.location.href='panel_familiar.html'">
+⬅ Regresar
+</button>
+
+<h1> Historial Médico del Residente</h1>
+
+<label>Selecciona fecha:</label>
+<input type="date" id="fecha">
+
+<button onclick="cargarDatos()">Ver</button>
+
+<table id="tabla">
+<thead>
+<tr>
+<th>Hora</th>
+<th>Presión</th>
+<th>Temp</th>
+<th>FC</th>
+<th>FR</th>
+<th>O2</th>
+<th>Glucosa</th>
+<th>Observaciones</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<script>
+
+// fecha de hoy por defecto
+document.getElementById("fecha").valueAsDate = new Date();
+
+//  cargar datos
+function cargarDatos() {
+
+    const fecha = document.getElementById("fecha").value;
+
+    fetch(`historial_familiar.php?fecha=${fecha}`)
+    .then(res => res.json())
+    .then(data => {
+
+        const tbody = document.querySelector("#tabla tbody");
+        tbody.innerHTML = "";
+
+        if (data.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='8'>Sin registros</td></tr>";
+            return;
+        }
+
+        data.forEach(row => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${row.hora}</td>
+                    <td>${row.presion}</td>
+                    <td>${row.temperatura}</td>
+                    <td>${row.frecuencia_cardiaca}</td>
+                    <td>${row.frecuencia_respiratoria}</td>
+                    <td>${row.oxigeno}</td>
+                    <td>${row.glucosa}</td>
+                    <td>${row.observaciones}</td>
+                </tr>
+            `;
+        });
+
+    });
+}
+
+// cargar al inicio
+cargarDatos();
+
+</script>
+
+</body>
+</html>
