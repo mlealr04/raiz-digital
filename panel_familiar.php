@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != "familiar") {
+    echo "Acceso no autorizado";
+    exit();
+}
+
 // conexión
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
@@ -10,8 +15,6 @@ if (!isset($_SESSION['id_usuario'])) {
 }
 
 $id_usuario = $_SESSION['id_usuario'];
-
-// obtener id_familiar
 $sql_familiar = "SELECT id_familiar FROM familiares WHERE id_usuario = '$id_usuario'";
 $result_familiar = $conexion->query($sql_familiar);
 

@@ -22,7 +22,7 @@ if (mysqli_num_rows($resultado) > 0) {
 
         //  GUARDAR SESIÓN
         $_SESSION['id_usuario'] = $usuario['id_usuario'];
-
+        $_SESSION['rol'] = $usuario['rol']; //  ESTA LÍNEA ES CLAVE
         // DEBUG (opcional)
         // var_dump($_SESSION);
 
