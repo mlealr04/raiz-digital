@@ -3,25 +3,28 @@ session_start();
 
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-if ($_SESSION['rol'] != "familiar") {
-    die("Acceso no autorizado");
-}
-echo $_SESSION['id_usuario'];
-die();
+echo "ID USUARIO SESSION: " . $_SESSION['id_usuario'] . "<br>";
+
 $id_usuario = $_SESSION['id_usuario'];
 
-//  obtener id_familiar
-$sql_familiar = "SELECT id_familiar FROM familiares WHERE id_usuario = '$id_usuario'";
-$result = $conexion->query($sql_familiar);
+// buscar familiar
+$sql_familiar = "SELECT * FROM familiares WHERE id_usuario = '$id_usuario'";
+$result_familiar = $conexion->query($sql_familiar);
 
-if ($result->num_rows == 0) {
-    die("Este usuario no tiene familiar asignado");
+if ($result_familiar->num_rows == 0) {
+    echo "❌ ESTE USUARIO NO EXISTE EN FAMILIARES";
+    die();
 }
 
-$familiar = $result->fetch_assoc();
+$familiar = $result_familiar->fetch_assoc();
 $id_familiar = $familiar['id_familiar'];
 
-//  obtener residentes
+echo "ID FAMILIAR: " . $id_familiar . "<br>";
+
+// buscar residentes
 $sql_residentes = "SELECT * FROM residentes WHERE id_familiar = '$id_familiar'";
-$residentes = $conexion->query($sql_residentes);
+$result_residentes = $conexion->query($sql_residentes);
+
+echo "TOTAL RESIDENTES: " . $result_residentes->num_rows;
+die();
 ?>
