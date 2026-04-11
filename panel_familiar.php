@@ -1,40 +1,44 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] != "familiar") {
-    echo "Acceso no autorizado";
-    exit();
-}
+echo "ID USUARIO SESSION: " . $_SESSION['id_usuario'] . "<br>";
 
-// conexión
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-// validar sesión
-if (!isset($_SESSION['id_usuario'])) {
-    die("No hay sesión iniciada");
+$id_usuario = $_SESSION['id_usuario'];
+
+$sql = "SELECT * FROM familiares WHERE id_usuario = '$id_usuario'";
+$result = $conexion->query($sql);
+
+if ($result->num_rows > 0) {
+    $f = $result->fetch_assoc();
+    echo "ID FAMILIAR: " . $f['id_familiar'];
+} else {
+    echo "NO EXISTE EN FAMILIARES";
+}
+
+die();
+
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+if ($_SESSION['rol'] != "familiar") {
+    die("Acceso no autorizado");
 }
 
 $id_usuario = $_SESSION['id_usuario'];
-$sql_familiar = "SELECT id_familiar FROM familiares WHERE id_usuario = '$id_usuario'";
-$result_familiar = $conexion->query($sql_familiar);
 
-if (!$result_familiar || $result_familiar->num_rows == 0) {
-    die("No se encontró el familiar");
+//  obtener id_familiar
+$sql_familiar = "SELECT id_familiar FROM familiares WHERE id_usuario = '$id_usuario'";
+$result = $conexion->query($sql_familiar);
+
+if ($result->num_rows == 0) {
+    die("Este usuario no tiene familiar asignado");
 }
 
-$familiar = $result_familiar->fetch_assoc();
+$familiar = $result->fetch_assoc();
 $id_familiar = $familiar['id_familiar'];
 
-// obtener residentes
+//  obtener residentes
 $sql_residentes = "SELECT * FROM residentes WHERE id_familiar = '$id_familiar'";
-$result_residentes = $conexion->query($sql_residentes);
-
-//  convertimos a array (clave para la vista)
-$residentes = [];
-
-while ($row = $result_residentes->fetch_assoc()) {
-    $residentes[] = $row;
-}
-
-// mandamos a la vista
-include("views/panel_familiar_view.php");
+$residentes = $conexion->query($sql_residentes);
+?>
