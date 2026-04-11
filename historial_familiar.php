@@ -13,9 +13,8 @@ $conexion = new mysqli("localhost", "root", "", "raizdigital");
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
 
 $sql = "SELECT * FROM signos_vitales 
-        WHERE id_residente = '$id_residente' 
-        AND fecha = '$fecha'
-        ORDER BY hora DESC";
+        WHERE id_residente = '$id_residente'
+        ORDER BY fecha DESC, hora DESC";
 
 $result = $conexion->query($sql);
 
