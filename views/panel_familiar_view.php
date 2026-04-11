@@ -20,15 +20,15 @@
             
             <p><strong><?php echo $r['nombre']; ?></strong></p>
 
-            <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
+            <a href="historial_familiar.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
                 <button>Ver historial</button>
             </a>
 
-            <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
+            <a href="inventario_familiar.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
                 <button>Ver inventario desde viewa</button>
             </a>
 
-            <a href="../gestion_familiar.php?id_residente=<?php echo $r['id_residente']; ?>">
+            <a href="gestion-familiar.php?id_residente=<?php echo $r['id_residente']; ?>">
                 <button>Gestión familiar</button>
             </a>
 
