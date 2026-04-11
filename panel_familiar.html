@@ -8,28 +8,33 @@
 
 <h1>Selecciona un residente</h1>
 
-<?php if (count($residentes) == 0): ?>
+<?php if ($residentes->num_rows == 0): ?>
+
     <p>No tienes residentes asignados</p>
+
 <?php else: ?>
 
-    <?php foreach ($residentes as $r): ?>
-    <div style="margin:10px; padding:10px; border:1px solid black;">
-        <p><?php echo $r['nombre']; ?></p>
+    <?php while ($r = $residentes->fetch_assoc()): ?>
 
-        <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
-            <button>Ver historial</button>
-        </a>
+        <div style="border:1px solid black; margin:10px; padding:10px;">
+            
+            <p><strong><?php echo $r['nombre']; ?></strong></p>
 
-        <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
-            <button>Ver inventario</button>
-        </a>
+            <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
+                <button>Ver historial</button>
+            </a>
 
-        <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion">
-            <button>Gestión familiar</button>
-        </a>
+            <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
+                <button>Ver inventario</button>
+            </a>
 
-    </div>
-<?php endforeach; ?>
+            <a href="../gestion_familiar.php?id_residente=<?php echo $r['id_residente']; ?>">
+                <button>Gestión familiar</button>
+            </a>
+
+        </div>
+
+    <?php endwhile; ?>
 
 <?php endif; ?>
 

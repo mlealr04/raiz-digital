@@ -30,7 +30,7 @@ if (mysqli_num_rows($resultado) > 0) {
             header("Location: panel_enfermero.html");
             exit();
         } else if ($usuario['rol'] == "familiar") {
-            header("Location: panel_familiar.html");
+            header("Location: panel_familiar.php");
             exit();
         }
 
