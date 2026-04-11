@@ -1,9 +1,5 @@
 <?php
 session_start();
-var_dump($_SESSION);
-die();
-
-session_start();
 
 if (!isset($_SESSION['id_residente'])) {
     echo json_encode([]);
@@ -14,7 +10,7 @@ $id_residente = $_SESSION['id_residente'];
 
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-$fecha = $_GET['fecha'];
+$fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
 
 $sql = "SELECT * FROM signos_vitales 
         WHERE id_residente = '$id_residente' 
