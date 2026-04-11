@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Registro</title>
+
+<style>
+  body { font-family: Arial; }
+  .extra { display: none; margin-top: 10px; }
+</style>
+
+<script>
+function mostrarCampos() {
+  let rol = document.getElementById("rol").value;
+
+  document.getElementById("familiar").style.display =
+    (rol === "familiar") ? "block" : "none";
+
+  document.getElementById("residente").style.display =
+    (rol === "residente") ? "block" : "none";
+}
+</script>
+</head>
+
+<body>
+
+<h2>Registro</h2>
+
+<form action="registro.php" method="POST">
+
+  <input type="text" name="nombre" placeholder="Nombre" required><br><br>
+  <input type="email" name="correo" placeholder="Correo" required><br><br>
+  <input type="password" name="password" placeholder="Contraseña" required><br><br>
+
+  <label>Rol:</label>
+  <select name="rol" id="rol" onchange="mostrarCampos()" required>
+    <option value="">Selecciona</option>
+    <option value="enfermero">Enfermero</option>
+    <option value="familiar">Familiar</option>
+  </select>
+
+  <!-- FAMILIAR -->
+  <div id="familiar" class="extra">
+    <h4>Datos Familiar</h4>
+    <input type="text" name="telefono" placeholder="Teléfono"><br><br>
+  </div>
+
+  <button type="submit">Registrarse</button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Familiar</title>
+</head>
+<body>
+
+<h1> Selecciona un residente</h1>
+
+<div id="lista"></div>
+
+<script>
+
+//  cargar residentes
+fetch("panel_familiar.php")
+.then(res => res.json())
+.then(data => {
+
+    const cont = document.getElementById("lista");
+
+    if (data.length === 0) {
+        cont.innerHTML = "No tienes residentes asignados";
+        return;
+    }
+
+    data.forEach(r => {
+        cont.innerHTML += `
+            <div style="margin:10px; padding:10px; border:1px solid black;">
+                <p>${r.nombre}</p>
+                <button onclick="seleccionar(${r.id_residente})">
+                    Ver historial
+                </button>
+            </div>
+        `;
+    });
+
+});
+
+//  guardar selección
+function seleccionar(id) {
+
+    fetch("seleccionar_residente.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "id_residente=" + id
+    })
+    .then(() => {
+        window.location.href = "historial_familiar.html";
+    });
+
+}
+
+</script>
+
+</body>
+</html>
