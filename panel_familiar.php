@@ -3,28 +3,56 @@ session_start();
 
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-echo "ID USUARIO SESSION: " . $_SESSION['id_usuario'] . "<br>";
-
 $id_usuario = $_SESSION['id_usuario'];
 
-// buscar familiar
-$sql_familiar = "SELECT * FROM familiares WHERE id_usuario = '$id_usuario'";
-$result_familiar = $conexion->query($sql_familiar);
-
-if ($result_familiar->num_rows == 0) {
-    echo "❌ ESTE USUARIO NO EXISTE EN FAMILIARES";
-    die();
-}
-
-$familiar = $result_familiar->fetch_assoc();
+// obtener familiar
+$sql_familiar = "SELECT id_familiar FROM familiares WHERE id_usuario = '$id_usuario'";
+$result = $conexion->query($sql_familiar);
+$familiar = $result->fetch_assoc();
 $id_familiar = $familiar['id_familiar'];
 
-echo "ID FAMILIAR: " . $id_familiar . "<br>";
-
-// buscar residentes
+// obtener residentes
 $sql_residentes = "SELECT * FROM residentes WHERE id_familiar = '$id_familiar'";
-$result_residentes = $conexion->query($sql_residentes);
-
-echo "TOTAL RESIDENTES: " . $result_residentes->num_rows;
-die();
+$residentes = $conexion->query($sql_residentes);
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Familiar</title>
+</head>
+<body>
+
+<h1>Selecciona un residente</h1>
+
+<?php if ($residentes->num_rows == 0): ?>
+
+    <p>No tienes residentes asignados</p>
+
+<?php else: ?>
+
+    <?php while ($r = $residentes->fetch_assoc()): ?>
+        
+        <div style="border:1px solid black; margin:10px; padding:10px;">
+            <p><strong><?php echo $r['nombre']; ?></strong></p>
+
+            <a href="seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
+                <button>Ver historial</button>
+            </a>
+
+            <a href="seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
+                <button>Ver inventario</button>
+            </a>
+
+            <a href="gestion_familiar.php?id_residente=<?php echo $r['id_residente']; ?>">
+                <button>Gestión familiar</button>
+            </a>
+        </div>
+
+    <?php endwhile; ?>
+
+<?php endif; ?>
+
+</body>
+</html>
