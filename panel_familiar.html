@@ -1,3 +1,24 @@
+<?php
+session_start();
+
+// conexión
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+// obtener id del usuario logueado
+$id_usuario = $_SESSION['id_usuario'];
+
+// obtener id_familiar
+$sql_familiar = "SELECT id_familiar FROM familiares WHERE id_usuario = '$id_usuario'";
+$result_familiar = $conexion->query($sql_familiar);
+$familiar = $result_familiar->fetch_assoc();
+
+$id_familiar = $familiar['id_familiar'];
+
+// obtener residentes
+$sql_residentes = "SELECT * FROM residentes WHERE id_familiar = '$id_familiar'";
+$result_residentes = $conexion->query($sql_residentes);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,54 +27,27 @@
 </head>
 <body>
 
-<h1> Selecciona un residente</h1>
+<h1>Selecciona un residente</h1>
 
-<div id="lista"></div>
+<?php if ($result_residentes->num_rows == 0): ?>
+    <p>No tienes residentes asignados</p>
+<?php else: ?>
+    
+    <?php while($r = $result_residentes->fetch_assoc()): ?>
+        
+        <div style="margin:10px; padding:10px; border:1px solid black;">
+            <p><?php echo $r['nombre']; ?></p>
 
-<script>
+            <!-- 🔥 AQUÍ ESTÁ LA SOLUCIÓN -->
+            <a href="seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>">
+                <button>Ver historial</button>
+            </a>
 
-//  cargar residentes
-fetch("panel_familiar.php")
-.then(res => res.json())
-.then(data => {
+        </div>
 
-    const cont = document.getElementById("lista");
+    <?php endwhile; ?>
 
-    if (data.length === 0) {
-        cont.innerHTML = "No tienes residentes asignados";
-        return;
-    }
-
-    data.forEach(r => {
-        cont.innerHTML += `
-            <div style="margin:10px; padding:10px; border:1px solid black;">
-                <p>${r.nombre}</p>
-                <button onclick="seleccionar(${r.id_residente})">
-                    Ver historial
-                </button>
-            </div>
-        `;
-    });
-
-});
-
-//  guardar selección
-function seleccionar(id) {
-
-    fetch("seleccionar_residente.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: "id_residente=" + id
-    })
-    .then(() => {
-        window.location.href = "historial_familiar.php";
-    });
-
-}
-
-</script>
+<?php endif; ?>
 
 </body>
 </html>
