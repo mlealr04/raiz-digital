@@ -1,5 +1,5 @@
 <?php
-session_start();
+/*session_start();
 
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
@@ -16,4 +16,10 @@ $sql_residentes = "SELECT * FROM residentes WHERE id_familiar = '$id_familiar'";
 $residentes = $conexion->query($sql_residentes);
 
 // mandar a la vista
-include("views/panel_familiar_view.php");
+include("views/panel_familiar_view.php");*/
+session_start();
+
+echo "ID USUARIO: " . $_SESSION['id_usuario'];
+echo "<br>ROL: " . $_SESSION['rol'];
+die();
+?>
