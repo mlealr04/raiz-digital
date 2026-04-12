@@ -2,29 +2,22 @@
 session_start();
 
 if (!isset($_SESSION['id_residente'])) {
-    echo json_encode([]);
-    exit();
+    die(" No hay residente seleccionado");
 }
 
-echo "ID RESIDENTE: " . $_SESSION['id_residente'];
-die();
+$id_residente = $_SESSION['id_residente'];
 
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-$fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
+$fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date("Y-m-d");
 
-$id_residente = $_SESSION['id_residente']
 $sql = "SELECT * FROM signos_vitales 
         WHERE id_residente = '$id_residente'
-        ORDER BY fecha DESC, hora DESC";
+        AND fecha = '$fecha'
+        ORDER BY hora DESC";
 
 $result = $conexion->query($sql);
 
-$data = [];
-
-while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
-}
-
-echo json_encode($data);
+// enviar a la vista
+include("views/historial_view.php");
 ?>
