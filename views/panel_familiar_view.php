@@ -42,18 +42,17 @@ button {
         <div class="card">
 
             <h3><?php echo $r['nombre']; ?></h3>
+            <a href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
+             <button>Ver historial</button>
+            </a>
 
-           <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
-    <button>Ver historial</button>
-</a>
+            <a href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
+             <button>Ver inventario</button>
+            </a>
 
-<a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
-    <button>Ver inventario</button>
-</a>
-
-<a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion">
-    <button>Gestión familiar</button>
-</a>
+            <a href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion">
+            <button>Gestión familiar</button>
+            </a>
 
         </div>
     <?php endwhile; ?>
