@@ -178,12 +178,24 @@ hr {
                         <div class="left">
                             <div class="dot"></div>
                             <div>
-                                <div><?php echo $row['mensaje']; ?></div>
-                                <small>Fecha: <?php echo $row['fecha']; ?></small>
+                               <div><?php echo $row['titulo']; ?></div>
+                                    <small>
+                                        Fecha: <?php echo $row['fecha']; ?> 
+                                        <?php echo $row['hora']; ?>
+                                    </small>
                             </div>
                         </div>
-                        <div class="pending">Pendiente</div>
-                    </div>
+                        <div class="pending">
+                            <?php
+                            $color = "gray";
+
+                            if ($row['estado'] == "confirmado") $color = "green";
+                            if ($row['estado'] == "rechazado") $color = "red";
+                            ?>
+
+                            <div style="color: <?php echo $color; ?>">
+                                <?php echo $row['estado']; ?>
+                            </div>
                 <?php endwhile; ?>
 
             <?php endif; ?>
@@ -192,7 +204,13 @@ hr {
 
         <!-- BOTONES -->
         <div class="cards">
+                    <a href="confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
+                         Confirmar
+                    </a>
 
+                    <a href="confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
+                         Rechazar
+                    </a>
             <!--  AHORA SON LINKS REALES -->
             <a href="#" class="card" style="text-decoration:none; color:black;">
                 <div class="badge"><?php echo $result->num_rows; ?></div>

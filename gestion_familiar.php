@@ -9,12 +9,20 @@ $id_residente = $_SESSION['id_residente'];
 
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-//  AQUÍ ESTÁ LA CLAVE
-$sql = "SELECT * FROM gestion_familiar 
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
+
+//  AHORA USAMOS ACTIVIDADES
+$sql = "SELECT * FROM actividades 
         WHERE id_residente = '$id_residente'
-        ORDER BY fecha DESC";
+        ORDER BY fecha ASC, hora ASC";
 
 $result = $conexion->query($sql);
 
+//  DEBUG POR SI ALGO FALLA
+if (!$result) {
+    die("Error en query: " . $conexion->error);
+}
 include("views/gestion_view.php");
 ?>
