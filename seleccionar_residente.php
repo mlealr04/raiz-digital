@@ -15,7 +15,7 @@ switch ($destino) {
         break;
 
     case "gestion":
-        header("Location: gestion_view.php");
+        header("Location: gestion_familiar.php");
         break;
 
     default:
