@@ -15,5 +15,5 @@ $id_familiar = $familiar['id_familiar'];
 $sql_residentes = "SELECT * FROM residentes WHERE id_familiar = '$id_familiar'";
 $residentes = $conexion->query($sql_residentes);
 
-// 👉 mandar a la vista
+// mandar a la vista
 include("views/panel_familiar_view.php");
