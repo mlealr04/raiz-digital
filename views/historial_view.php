@@ -37,7 +37,20 @@ th {
 <a href="/raiz-digital/panel_familiar.php">
     <button>⬅ Regresar</button>
 </a>
+<form method="GET" action="/raiz-digital/historial_familiar.php">
 
+    <label>Selecciona fecha:</label>
+
+    <input 
+        type="date" 
+        name="fecha" 
+        value="<?php echo isset($fecha) ? $fecha : ''; ?>"
+        required
+    >
+
+    <button type="submit">Ver</button>
+
+</form>
 <table>
 <tr>
     <th>Hora</th>
