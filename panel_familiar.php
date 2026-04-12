@@ -1,6 +1,6 @@
 <?php
-/*session_start();
-
+session_start();
+/*
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
 $id_usuario = $_SESSION['id_usuario'];
@@ -16,10 +16,24 @@ $sql_residentes = "SELECT * FROM residentes WHERE id_familiar = '$id_familiar'";
 $residentes = $conexion->query($sql_residentes);
 
 // mandar a la vista
-include("views/panel_familiar_view.php");*/
-session_start();
+include("views/panel_familiar_view.php");
+?>
+*/
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-echo "ID USUARIO: " . $_SESSION['id_usuario'];
-echo "<br>ROL: " . $_SESSION['rol'];
+$id_usuario = $_SESSION['id_usuario'];
+
+$sql_familiar = "SELECT * FROM familiares WHERE id_usuario = '$id_usuario'";
+$result = $conexion->query($sql_familiar);
+
+if ($result->num_rows == 0) {
+    die("❌ No existe familiar para este usuario");
+}
+
+$familiar = $result->fetch_assoc();
+
+echo "ID USUARIO SESSION: " . $id_usuario . "<br>";
+echo "ID FAMILIAR: " . $familiar['id_familiar'];
+
 die();
 ?>
