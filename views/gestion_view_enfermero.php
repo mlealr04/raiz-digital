@@ -1,3 +1,5 @@
+var_dump($id_residente);
+die();
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -11,6 +13,7 @@ if ($conexion->connect_error) {
     die("Error conexión");
 }
 
+// 
 //  FORZAMOS SIEMPRE RESULT
 $result = null;
 
@@ -21,7 +24,6 @@ if ($id_residente) {
 
     $result = $conexion->query($sql);
 }
-?>
 ?>
 <!DOCTYPE html>
 <html lang="es">
