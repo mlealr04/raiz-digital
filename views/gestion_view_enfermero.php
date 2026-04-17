@@ -1,3 +1,28 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['id_residente'])) {
+    die("❌ No hay residente seleccionado");
+}
+
+$id_residente = $_SESSION['id_residente'];
+
+// conexión
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+if ($conexion->connect_error) {
+    die("Error conexión");
+}
+
+//  ESTA QUERY SIEMPRE DEBE EJECUTARSE
+$sql = "SELECT * FROM actividades 
+        WHERE id_residente = '$id_residente'
+        ORDER BY fecha ASC, hora ASC";
+
+$result = $conexion->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -141,31 +166,7 @@ hr {
     margin-top: 10px;
 }
 </style>
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
-if (!isset($_SESSION['id_residente'])) {
-    die("❌ No hay residente seleccionado");
-}
-
-$id_residente = $_SESSION['id_residente'];
-
-// conexión
-$conexion = new mysqli("localhost", "root", "", "raizdigital");
-
-if ($conexion->connect_error) {
-    die("Error conexión");
-}
-
-//  ESTA QUERY SIEMPRE DEBE EJECUTARSE
-$sql = "SELECT * FROM actividades 
-        WHERE id_residente = '$id_residente'
-        ORDER BY fecha ASC, hora ASC";
-
-$result = $conexion->query($sql);
-?>
 </head>
 
 <body>
