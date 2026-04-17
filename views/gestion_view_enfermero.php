@@ -141,6 +141,31 @@ hr {
     margin-top: 10px;
 }
 </style>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['id_residente'])) {
+    die("❌ No hay residente seleccionado");
+}
+
+$id_residente = $_SESSION['id_residente'];
+
+// conexión
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+if ($conexion->connect_error) {
+    die("Error conexión");
+}
+
+//  ESTA QUERY SIEMPRE DEBE EJECUTARSE
+$sql = "SELECT * FROM actividades 
+        WHERE id_residente = '$id_residente'
+        ORDER BY fecha ASC, hora ASC";
+
+$result = $conexion->query($sql);
+?>
 </head>
 
 <body>
@@ -171,12 +196,11 @@ hr {
 <a href="views/crear_actividad.html">
     <button>➕ Crear Actividad</button>
 </a>
-       <?php if ($result->num_rows == 0): ?>
-    <p>No hay actividades</p>
-<?php else: ?>
+    <?php if ($result && $result->num_rows > 0): ?>
 
     <?php while($row = $result->fetch_assoc()): ?>
         <div class="agenda-item">
+
             <div class="left">
                 <div class="dot"></div>
                 <div>
@@ -191,7 +215,6 @@ hr {
             <div class="pending">
                 <?php
                 $color = "gray";
-
                 if ($row['estado'] == "confirmado") $color = "green";
                 if ($row['estado'] == "rechazado") $color = "red";
                 ?>
@@ -200,49 +223,26 @@ hr {
                     <?php echo $row['estado']; ?>
                 </div>
 
-                <!-- BOTONES -->
                 <br>
+
                 <a href="../confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
-                    ✔
+                    ✔ Confirmar
                 </a>
 
+                <br>
+
                 <a href="../confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
-                    ✖
+                    ✖ Rechazar
                 </a>
 
             </div>
+
         </div>
     <?php endwhile; ?>
 
+<?php else: ?>
+    <p>No hay actividades</p>
 <?php endif; ?>
-        </div>
-
-        <!-- BOTONES -->
-        <div class="cards">
-                    <a href="confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
-                         Confirmar
-                    </a>
-
-                    <a href="confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
-                         Rechazar
-                    </a>
-            <!--  AHORA SON LINKS REALES -->
-            <a href="#" class="card" style="text-decoration:none; color:black;">
-                <div class="badge"><?php echo $result->num_rows; ?></div>
-                RECORDATORIOS
-                <div class="icon">🔔</div>
-            </a>
-
-            <a href="#" class="card" style="text-decoration:none; color:black;">
-                NOTAS
-                <div class="icon">📝</div>
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
 
 </body>
 </html>
