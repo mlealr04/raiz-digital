@@ -11,60 +11,169 @@ if (isset($_POST['id_residente'])) {
 
     $id_residente = $_POST['id_residente'];
 
-    // Guardar sesión
     $_SESSION['id_residente'] = $id_residente;
 
-    // Redirigir al panel del residente
     header("Location: panel_residente.php");
     exit();
 }
+?>
 
-// CASO 2: BUSCAR RESIDENTE
-if (isset($_POST['busqueda'])) {
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Buscar Residente</title>
 
-    // Conexión
-    $conexion = new mysqli("localhost", "root", "", "raizdigital");
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial;
+    background-color: #e9e9e9;
+}
 
-    if ($conexion->connect_error) {
-        die("Error de conexión: " . $conexion->connect_error);
-    }
+.header {
+    background: linear-gradient(to right, #5a4a2f, #c89b4f);
+    color: white;
+    padding: 15px 25px;
+    font-size: 14px;
+}
 
-    $busqueda = $_POST['busqueda'];
+.container {
+    padding: 40px;
+}
 
-    // Buscar por ID o nombre
-    if (is_numeric($busqueda)) {
-        $sql = "SELECT * FROM residentes WHERE id_residente = '$busqueda'";
-    } else {
-        $sql = "SELECT * FROM residentes WHERE nombre LIKE '%$busqueda%'";
-    }
+h1 {
+    font-size: 40px;
+}
 
-    $result = $conexion->query($sql);
+/* BUSCADOR */
+.buscador {
+    margin-bottom: 30px;
+}
 
-    if ($result->num_rows > 0) {
+input {
+    padding: 10px;
+    width: 300px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
 
-        echo "<h2>Resultados:</h2>";
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #5a4a2f;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
 
-        while ($row = $result->fetch_assoc()) {
+button:hover {
+    background-color: #c89b4f;
+}
 
-            echo "
-            <div style='margin-bottom:20px; border:1px solid #c19999; padding:10px;'>
+/* TARJETAS */
+.card {
+    background-color: #cfc5b8;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-                <p><strong>ID:</strong> {$row['id_residente']}</p>
-                <p><strong>Nombre:</strong> {$row['nombre']}</p>
+.info {
+    display: flex;
+    flex-direction: column;
+}
 
-                <form method='POST'>
-                    <input type='hidden' name='id_residente' value='{$row['id_residente']}'>
-                    <button type='submit'>Seleccionar</button>
-                </form>
+.id {
+    font-size: 12px;
+    color: #555;
+}
 
-            </div>
-            ";
+.nombre {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.select-btn {
+    background-color: #d1a365;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.select-btn:hover {
+    transform: scale(1.05);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    ☰ RAÍZ DIGITAL > BUSCAR RESIDENTE
+</div>
+
+<div class="container">
+
+    <h1>Buscar Residente</h1>
+
+    <?php
+    // CASO 2: BUSCAR
+    if (isset($_POST['busqueda'])) {
+
+        $conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+        if ($conexion->connect_error) {
+            die("Error de conexión: " . $conexion->connect_error);
         }
 
-    } else {
-        echo " No se encontraron residentes";
-    }
+        $busqueda = $_POST['busqueda'];
 
-    $conexion->close();
-}
-?>
+        if (is_numeric($busqueda)) {
+            $sql = "SELECT * FROM residentes WHERE id_residente = '$busqueda'";
+        } else {
+            $sql = "SELECT * FROM residentes WHERE nombre LIKE '%$busqueda%'";
+        }
+
+        $result = $conexion->query($sql);
+
+        if ($result && $result->num_rows > 0) {
+
+            while ($row = $result->fetch_assoc()) {
+
+                echo "
+                <div class='card'>
+
+                    <div class='info'>
+                        <div class='id'>ID: {$row['id_residente']}</div>
+                        <div class='nombre'>{$row['nombre']}</div>
+                    </div>
+
+                    <form method='POST'>
+                        <input type='hidden' name='id_residente' value='{$row['id_residente']}'>
+                        <button class='select-btn'>Seleccionar</button>
+                    </form>
+
+                </div>
+                ";
+            }
+
+        } else {
+            echo "<p>No se encontraron residentes</p>";
+        }
+
+        $conexion->close();
+    }
+    ?>
+
+</div>
+
+</body>
+</html>
