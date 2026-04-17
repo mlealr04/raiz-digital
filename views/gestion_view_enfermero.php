@@ -5,8 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $id_residente = $_SESSION['id_residente'] ?? null;
-var_dump($id_residente);
-die();
+
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
 if ($conexion->connect_error) {
@@ -23,6 +22,9 @@ if ($id_residente) {
             ORDER BY fecha ASC, hora ASC";
 
     $result = $conexion->query($sql);
+    if (!$result) {
+    die("Error en SQL: " . $conexion->error);
+}
 }
 ?>
 <!DOCTYPE html>
