@@ -1,12 +1,12 @@
-var_dump($id_residente);
-die();
+
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 $id_residente = $_SESSION['id_residente'] ?? null;
-
+var_dump($id_residente);
+die();
 $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
 if ($conexion->connect_error) {
