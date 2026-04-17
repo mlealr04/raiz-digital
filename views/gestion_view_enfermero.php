@@ -172,13 +172,11 @@ hr {
 </style>
 
 </head>
-
 <body>
 
 <div class="header">
     <div>☰ RAÍZ DIGITAL > GESTIÓN FAMILIAR</div>
 
-    <!--  REGRESAR CORRECTO -->
     <a href="/raiz-digital/panel_familiar.php" class="inicio" style="color:white;">
         CASA
     </a>
@@ -195,64 +193,91 @@ hr {
 
     <div class="grid">
 
-        <!--  AGENDA DINÁMICA -->
+        <!-- 🔥 AGENDA DINÁMICA -->
         <div class="agenda">
             <div class="agenda-title">📅 AGENDA DE ACTIVIDADES</div>
-<a href="views/crear_actividad.html">
-    <button>➕ Crear Actividad</button>
-</a>
-    <?php if ($result && $result->num_rows > 0): ?>
 
-    <?php while($row = $result->fetch_assoc()): ?>
-        <div class="agenda-item">
+            <!-- BOTÓN CREAR -->
+            <a href="/raiz-digital/views/crear_actividad.html">
+                <button>➕ Crear Actividad</button>
+            </a>
 
-            <div class="left">
-                <div class="dot"></div>
-                <div>
-                    <div><?php echo $row['titulo']; ?></div>
-                    <small>
-                        Fecha: <?php echo $row['fecha']; ?> 
-                        <?php echo $row['hora']; ?>
-                    </small>
-                </div>
+            <?php if ($result && $result->num_rows > 0): ?>
+
+                <?php while($row = $result->fetch_assoc()): ?>
+                    <div class="agenda-item">
+
+                        <div class="left">
+                            <div class="dot"></div>
+                            <div>
+                                <div><?php echo $row['titulo']; ?></div>
+                                <small>
+                                    Fecha: <?php echo $row['fecha']; ?> 
+                                    <?php echo $row['hora']; ?>
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="pending">
+                            <?php
+                            $color = "gray";
+                            if ($row['estado'] == "confirmado") $color = "green";
+                            if ($row['estado'] == "rechazado") $color = "red";
+                            ?>
+
+                            <div style="color: <?php echo $color; ?>">
+                                <?php echo $row['estado']; ?>
+                            </div>
+
+                            <br>
+
+                            <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
+                                ✔ Confirmar
+                            </a>
+
+                            <br>
+
+                            <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
+                                ✖ Rechazar
+                            </a>
+
+                            <br>
+
+                            <a href="/raiz-digital/eliminar_actividad.php?id=<?php echo $row['id_actividad']; ?>" 
+                               onclick="return confirm('¿Eliminar esta actividad?')"
+                               style="color:red;">
+                               🗑 Eliminar
+                            </a>
+                        </div>
+
+                    </div>
+                <?php endwhile; ?>
+
+            <?php else: ?>
+                <p>No hay actividades</p>
+            <?php endif; ?>
+
+        </div>
+
+        <!-- 🔥 TARJETAS (DISEÑO DE TU EQUIPO) -->
+        <div class="cards">
+
+            <div class="card" onclick="window.location.href='/raiz-digital/views/recordatorios.html'">
+                <div class="badge">0</div>
+                AVISOS
+                <div class="icon">🔔</div>
             </div>
 
-            <div class="pending">
-                <?php
-                $color = "gray";
-                if ($row['estado'] == "confirmado") $color = "green";
-                if ($row['estado'] == "rechazado") $color = "red";
-                ?>
-
-                <div style="color: <?php echo $color; ?>">
-                    <?php echo $row['estado']; ?>
-                </div>
-
-                <br>
-
-                <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
-                    ✔ Confirmar
-                </a>
-
-                <br>
-
-                <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
-                    ✖ Rechazar
-                </a>
-                   <a href="/raiz-digital/eliminar_actividad.php?id=<?php echo $row['id_actividad']; ?>" 
-                    onclick="return confirm('¿Eliminar esta actividad?')"
-                    style="color:red; margin-left:10px;">
-                    🗑 Eliminar
-                 </a>
+            <div class="card" onclick="window.location.href='/raiz-digital/views/notas.html'">
+                NOTAS
+                <div class="icon">📝</div>
             </div>
 
         </div>
-    <?php endwhile; ?>
 
-<?php else: ?>
-    <p>No hay actividades</p>
-<?php endif; ?>
+    </div>
+
+</div>
 
 </body>
 </html>
-<?php
