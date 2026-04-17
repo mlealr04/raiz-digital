@@ -230,13 +230,13 @@ hr {
 
                 <br>
 
-                <a href="../confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
+                <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
                     ✔ Confirmar
                 </a>
 
                 <br>
 
-                <a href="../confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
+                <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
                     ✖ Rechazar
                 </a>
 
