@@ -28,10 +28,9 @@ VALUES
 ('$id_residente', '$id_enfermero', '$titulo', '$descripcion', '$fecha', '$hora', 'pendiente')";
 
 if ($conexion->query($sql) === TRUE) {
-    echo " Actividad creada";
-
-    // redirigir a gestión
-    header("Location: views/gestion_familiar_enfermero.php");
+  //  echo " Actividad creada";
+  // redirigir a gestión
+   header("Location: views/gestion_view_enfermero.php");
     exit();
 
 } else {
