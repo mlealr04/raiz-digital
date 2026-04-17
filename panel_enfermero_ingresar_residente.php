@@ -116,7 +116,15 @@ button:hover {
 
 <body>
 
+<div class="card">
+<h2>Ingresar a Residente</h2>
+
+<a href="panel_enfermero_ingresar_residente.php">
+    <button>Buscar residente</button>
+</a>
+</div>
 <div class="header">
+    
     ☰ RAÍZ DIGITAL > BUSCAR RESIDENTE
 </div>
 
