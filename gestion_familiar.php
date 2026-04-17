@@ -19,4 +19,6 @@ $sql = "SELECT * FROM actividades
         ORDER BY fecha ASC, hora ASC";
 
 $result = $conexion->query($sql);
+// enviar a la vista
+include("views/gestion_view_enfermero.php");
 ?>
