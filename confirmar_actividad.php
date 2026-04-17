@@ -17,6 +17,6 @@ $sql = "UPDATE actividades
 $conexion->query($sql);
 
 // regresar
-header("Location: views/gestion_familiar_enfermero.php");
+header("Location: views/gestion_view_enfermero.php");
 exit();
 ?>
