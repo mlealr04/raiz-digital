@@ -239,7 +239,11 @@ hr {
                 <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
                     ✖ Rechazar
                 </a>
-
+                <a href="../eliminar_actividad.php?id=<?php echo $row['id_actividad']; ?>" 
+                    onclick="return confirm('¿Eliminar esta actividad?')"
+                    style="color:red; text-decoration:none; font-weight:bold;"
+                    🗑 Eliminar
+                    </a>
             </div>
 
         </div>
