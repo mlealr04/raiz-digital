@@ -171,37 +171,50 @@ hr {
 <a href="views/crear_actividad.html">
     <button>➕ Crear Actividad</button>
 </a>
-            <?php if ($result->num_rows == 0): ?>
-                <p>No hay actividades</p>
-            <?php else: ?>
+       <?php if ($result->num_rows == 0): ?>
+    <p>No hay actividades</p>
+<?php else: ?>
 
-                <?php while($row = $result->fetch_assoc()): ?>
-                    <div class="agenda-item">
-                        <div class="left">
-                            <div class="dot"></div>
-                            <div>
-                               <div><?php echo $row['titulo']; ?></div>
-                                    <small>
-                                        Fecha: <?php echo $row['fecha']; ?> 
-                                        <?php echo $row['hora']; ?>
-                                    </small>
-                            </div>
-                        </div>
-                        <div class="pending">
-                            <?php
-                            $color = "gray";
+    <?php while($row = $result->fetch_assoc()): ?>
+        <div class="agenda-item">
+            <div class="left">
+                <div class="dot"></div>
+                <div>
+                    <div><?php echo $row['titulo']; ?></div>
+                    <small>
+                        Fecha: <?php echo $row['fecha']; ?> 
+                        <?php echo $row['hora']; ?>
+                    </small>
+                </div>
+            </div>
 
-                            if ($row['estado'] == "confirmado") $color = "green";
-                            if ($row['estado'] == "rechazado") $color = "red";
-                            ?>
+            <div class="pending">
+                <?php
+                $color = "gray";
 
-                            <div style="color: <?php echo $color; ?>">
-                                <?php echo $row['estado']; ?>
-                            </div>
-                <?php endwhile; ?>
+                if ($row['estado'] == "confirmado") $color = "green";
+                if ($row['estado'] == "rechazado") $color = "red";
+                ?>
 
-            <?php endif; ?>
+                <div style="color: <?php echo $color; ?>">
+                    <?php echo $row['estado']; ?>
+                </div>
 
+                <!-- BOTONES -->
+                <br>
+                <a href="../confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
+                    ✔
+                </a>
+
+                <a href="../confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
+                    ✖
+                </a>
+
+            </div>
+        </div>
+    <?php endwhile; ?>
+
+<?php endif; ?>
         </div>
 
         <!-- BOTONES -->
@@ -233,3 +246,26 @@ hr {
 
 </body>
 </html>
+<?php
+session_start();
+
+if (!isset($_SESSION['id_residente'])) {
+    die("❌ No hay residente seleccionado");
+}
+
+$id_residente = $_SESSION['id_residente'];
+
+// conexión
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+if ($conexion->connect_error) {
+    die("Error conexión");
+}
+
+// traer actividades del residente
+$sql = "SELECT * FROM actividades 
+        WHERE id_residente = '$id_residente'
+        ORDER BY fecha ASC, hora ASC";
+
+$result = $conexion->query($sql);
+?>
