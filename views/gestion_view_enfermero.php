@@ -168,6 +168,9 @@ hr {
         <!--  AGENDA DINÁMICA -->
         <div class="agenda">
             <div class="agenda-title">📅 AGENDA DE ACTIVIDADES</div>
+<a href="views/crear_actividad.html">
+    <button>➕ Crear Actividad</button>
+</a>
             <?php if ($result->num_rows == 0): ?>
                 <p>No hay actividades</p>
             <?php else: ?>

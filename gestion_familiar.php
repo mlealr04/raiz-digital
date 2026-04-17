@@ -24,5 +24,5 @@ $result = $conexion->query($sql);
 if (!$result) {
     die("Error en query: " . $conexion->error);
 }
-include("views/gestion_view.php");
+include("views/gestion_view_enfermero.php");
 ?>
