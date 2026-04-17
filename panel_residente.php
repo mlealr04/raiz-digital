@@ -5,7 +5,7 @@ if (!isset($_SESSION['id_residente'])) {
     die(" No has seleccionado un residente");
 }
 
-echo "Residente ID: " . $_SESSION['id_residente'];
+//echo "Residente ID: " . $_SESSION['id_residente'];
 
 $id_residente = $_SESSION['id_residente'];
 // CONEXIÓN
