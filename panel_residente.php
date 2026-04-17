@@ -43,7 +43,7 @@ $id_residente = $_SESSION['id_residente'];
     <button> Inventario</button>
 </a>
 
-<a href="gestion_familiar.html">
+<a href="gestion_familiar.php">
     <button> Gestión Familiar</button>
 </a>
 
