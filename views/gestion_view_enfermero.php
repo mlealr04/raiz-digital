@@ -259,7 +259,7 @@ hr {
 
         </div>
 
-        <!-- 🔥 TARJETAS (DISEÑO DE TU EQUIPO) -->
+        <!--  TARJETAS (DISEÑO DE TU EQUIPO) -->
         <div class="cards">
 
             <div class="card" onclick="window.location.href='/raiz-digital/views/recordatorios.html'">
