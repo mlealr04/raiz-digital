@@ -295,7 +295,7 @@ hr {
         <div class="agenda">
         <div class="agenda-title">🔔 AVISOS</div>
 
-        <a href="views/crear_aviso.html">
+        <a href="crear_aviso.html">
         <button>➕ Crear Aviso</button>
         </a>
 
