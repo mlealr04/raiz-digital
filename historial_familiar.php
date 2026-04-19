@@ -27,5 +27,5 @@ if ($fecha) {
 $result = $conexion->query($sql);
 
 // enviar a la vista
-include("views/historial_view.php");
+include("views/historial_familiar_view.php");
 ?>
