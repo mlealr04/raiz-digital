@@ -260,61 +260,127 @@ hr {
         </div>
 
        <?php
-            $sqlNotas = "SELECT * FROM notas 
-                        WHERE id_residente = '$id_residente'
-                        ORDER BY fecha DESC";
+$sqlNotas = "SELECT n.*, u.nombre 
+            FROM notas n
+            INNER JOIN usuarios u ON n.id_usuario = u.id_usuario
+            WHERE n.id_residente = '$id_residente'";
 
-            $notas = $conexion->query($sqlNotas);
-            ?>
-            <div class="agenda">
-    <div class="agenda-title">📝 MIS NOTAS</div>
+if (isset($_GET['fecha_nota']) && $_GET['fecha_nota'] != '') {
+    $fecha = $_GET['fecha_nota'];
+    $sqlNotas .= " AND DATE(n.fecha) = '$fecha'";
+}
 
-    <a href="views/crear_nota.html">
-        <button>➕ Crear Nota</button>
-    </a>
+$sqlNotas .= " ORDER BY n.fecha DESC";
+
+$notas = $conexion->query($sqlNotas);
+?>
+
+<div class="agenda">
+    <div class="agenda-title">📝 NOTAS</div>
+
+    <form method="GET">
+        <input type="date" name="fecha_nota">
+        <button>Filtrar</button>
+    </form>
 
     <?php if ($notas && $notas->num_rows > 0): ?>
+
         <?php while($n = $notas->fetch_assoc()): ?>
-            <div class="agenda-item">
-                <div>
+
+            <?php $esEnfermero = $n['tipo'] == 'enfermero'; ?>
+
+            <div style="
+                display:flex;
+                justify-content: <?php echo $esEnfermero ? 'flex-end' : 'flex-start'; ?>;
+                margin:10px 0;
+            ">
+
+                <div style="
+                    max-width:70%;
+                    background: <?php echo $esEnfermero ? '#d1a365' : '#cfc5b8'; ?>;
+                    padding:10px;
+                    border-radius:15px;
+                ">
+
+                    <strong><?php echo $n['nombre']; ?></strong><br>
                     <?php echo $n['contenido']; ?><br>
+
                     <small><?php echo $n['fecha']; ?></small>
+
+                    <br>
+                    <a href="/raiz-digital/eliminar_nota.php?id=<?php echo $n['id_nota']; ?>"
+                       onclick="return confirm('¿Eliminar nota?')"
+                       style="color:red;">
+                       🗑 Eliminar
+                    </a>
+
                 </div>
+
             </div>
+
         <?php endwhile; ?>
+
     <?php else: ?>
         <p>No hay notas</p>
     <?php endif; ?>
-</div>
-        <?php
-        $sqlAvisos = "SELECT * FROM avisos 
-              WHERE id_residente = '$id_residente'";
-        $avisos = $conexion->query($sqlAvisos);
-        ?>
-        <div class="agenda">
-        <div class="agenda-title">🔔 AVISOS</div>
 
-        <a href="views/crear_aviso.html">
+</div>
+
+
+<?php
+$sqlAvisos = "SELECT * FROM avisos 
+              WHERE id_residente = '$id_residente'";
+
+if (isset($_GET['fecha_aviso']) && $_GET['fecha_aviso'] != '') {
+    $fechaAviso = $_GET['fecha_aviso'];
+    $sqlAvisos .= " AND DATE(fecha) = '$fechaAviso'";
+}
+
+$sqlAvisos .= " ORDER BY fecha DESC";
+
+$avisos = $conexion->query($sqlAvisos);
+?>
+
+<div class="agenda">
+    <div class="agenda-title">🔔 AVISOS</div>
+
+    <a href="/raiz-digital/views/crear_aviso.html">
         <button>➕ Crear Aviso</button>
-        </a>
+    </a>
+
+    <form method="GET">
+        <input type="date" name="fecha_aviso">
+        <button>Filtrar</button>
+    </form>
 
     <?php if ($avisos && $avisos->num_rows > 0): ?>
+
         <?php while($a = $avisos->fetch_assoc()): ?>
+
             <div class="agenda-item">
                 <div>
                     <strong><?php echo $a['titulo']; ?></strong><br>
                     <?php echo $a['descripcion']; ?><br>
                     Cantidad: <?php echo $a['cantidad']; ?><br>
                     Fecha: <?php echo $a['fecha']; ?>
+
+                    <br>
+                    <a href="/raiz-digital/eliminar_aviso.php?id=<?php echo $a['id_aviso']; ?>"
+                       onclick="return confirm('¿Eliminar aviso?')"
+                       style="color:red;">
+                       🗑 Eliminar
+                    </a>
                 </div>
             </div>
+
         <?php endwhile; ?>
+
     <?php else: ?>
         <p>No hay avisos</p>
     <?php endif; ?>
-    </div>
-    </div>
-    </div>
+
+</div>
+ </div>
  </div>
 </body>
 </html>
