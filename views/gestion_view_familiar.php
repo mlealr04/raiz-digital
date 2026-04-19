@@ -109,7 +109,6 @@ hr {
 </head>
 
 <body>
-
 <div class="header">
     <div>☰ RAÍZ DIGITAL > GESTIÓN FAMILIAR</div>
     <a href="/raiz-digital/panel_familiar.php" style="color:white;">CASA</a>
@@ -124,17 +123,16 @@ hr {
 
     <hr>
 
+    <!-- 🔥 GRID ABRE AQUÍ -->
     <div class="grid">
 
+        <!-- 📅 AGENDA -->
         <div class="agenda">
             <div class="agenda-title">📅 AGENDA</div>
 
             <?php if ($result && $result->num_rows > 0): ?>
-
                 <?php while($row = $result->fetch_assoc()): ?>
-
                     <div class="agenda-item">
-
                         <div class="left">
                             <div class="dot"></div>
                             <div>
@@ -146,7 +144,6 @@ hr {
                         </div>
 
                         <div class="estado">
-
                             <?php
                             $color = "gray";
                             if ($row['estado'] == "confirmado") $color = "green";
@@ -157,7 +154,6 @@ hr {
                                 <?php echo $row['estado']; ?>
                             </div>
 
-                            <!-- SOLO FAMILIAR -->
                             <a class="btn confirmar"
                                href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
                                ✔ Confirmar
@@ -167,77 +163,75 @@ hr {
                                href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
                                ✖ Rechazar
                             </a>
-
                         </div>
-
                     </div>
-
                 <?php endwhile; ?>
-
             <?php else: ?>
                 <p>No hay actividades</p>
             <?php endif; ?>
-
         </div>
 
-    <?php
-    $sqlAvisos = "SELECT * FROM avisos 
-              WHERE id_residente = '$id_residente'";
-    $avisos = $conexion->query($sqlAvisos);
-    ?>
+        <!-- 🔔 AVISOS -->
+        <?php
+        $sqlAvisos = "SELECT * FROM avisos 
+                      WHERE id_residente = '$id_residente'";
+        $avisos = $conexion->query($sqlAvisos);
+        ?>
 
-    <div class="agenda">
-        <div class="agenda-title">🔔 AVISOS</div>
+        <div class="agenda">
+            <div class="agenda-title">🔔 AVISOS</div>
 
-        <?php if ($avisos && $avisos->num_rows > 0): ?>
-        <?php while($a = $avisos->fetch_assoc()): ?>
-            <div class="agenda-item">
-                <div>
-                    <strong><?php echo $a['titulo']; ?></strong><br>
-                    <?php echo $a['descripcion']; ?><br>
-                    Cantidad: <?php echo $a['cantidad']; ?><br>
-                    Fecha: <?php echo $a['fecha']; ?>
-                </div>
-            </div>
-        <?php endwhile; ?>
-        <?php else: ?>
-        <p>No hay avisos</p>
-        <?php endif; ?>
+            <?php if ($avisos && $avisos->num_rows > 0): ?>
+                <?php while($a = $avisos->fetch_assoc()): ?>
+                    <div class="agenda-item">
+                        <div>
+                            <strong><?php echo $a['titulo']; ?></strong><br>
+                            <?php echo $a['descripcion']; ?><br>
+                            Cantidad: <?php echo $a['cantidad']; ?><br>
+                            Fecha: <?php echo $a['fecha']; ?>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No hay avisos</p>
+            <?php endif; ?>
         </div>
-     </div>
 
-    <?php
+        <!-- 📝 MIS NOTAS -->
+        <?php
         $id_usuario = $_SESSION['id_usuario'];
 
         $sqlNotas = "SELECT * FROM notas 
-                    WHERE id_residente = '$id_residente'
-                    AND id_usuario = '$id_usuario'
-                    ORDER BY fecha DESC";
+                     WHERE id_residente = '$id_residente'
+                     AND id_usuario = '$id_usuario'
+                     ORDER BY fecha DESC";
 
         $notas = $conexion->query($sqlNotas);
         ?>
+
         <div class="agenda">
-    <div class="agenda-title">📝 MIS NOTAS</div>
+            <div class="agenda-title">📝 MIS NOTAS</div>
 
-    <a href="../views/crear_nota.html">
-        <button>➕ Crear Nota</button>
-    </a>
+            <a href="views/crear_nota.html">
+                <button>➕ Crear Nota</button>
+            </a>
 
-    <?php if ($notas && $notas->num_rows > 0): ?>
-        <?php while($n = $notas->fetch_assoc()): ?>
-            <div class="agenda-item">
-                <div>
-                    <?php echo $n['contenido']; ?><br>
-                    <small><?php echo $n['fecha']; ?></small>
-                </div>
-            </div>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <p>No hay notas</p>
-    <?php endif; ?>
+            <?php if ($notas && $notas->num_rows > 0): ?>
+                <?php while($n = $notas->fetch_assoc()): ?>
+                    <div class="agenda-item">
+                        <div>
+                            <?php echo $n['contenido']; ?><br>
+                            <small><?php echo $n['fecha']; ?></small>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No hay notas</p>
+            <?php endif; ?>
+        </div>
+
+    </div> <!-- 🔥 GRID CIERRA AQUÍ -->
+
 </div>
-
-</div>
-
 </body>
 </html>
