@@ -18,23 +18,32 @@
         <strong><?php echo $r['nombre']; ?></strong>
       </p>
 
-      <a
-        href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion"
-      >
-        <button>Ver historial</button>
-      </a>
+      <div style="border: 1px solid black; margin: 10px; padding: 10px">
+        <p>
+          <strong><?php echo $r['nombre']; ?></strong>
+        </p>
 
-      <a
-        href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion"
-      >
-        <button>Ver inventario</button>
-      </a>
+        <!-- HISTORIAL -->
+        <a
+          href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial"
+        >
+          <button>Ver historial</button>
+        </a>
 
-      <a
-        href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion"
-      >
-        <button>Gestión familiar</button>
-      </a>
+        <!-- INVENTARIO -->
+        <a
+          href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario"
+        >
+          <button>Ver inventario</button>
+        </a>
+
+        <!-- GESTION -->
+        <a
+          href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion"
+        >
+          <button>Gestión familiar</button>
+        </a>
+      </div>
     </div>
 
     <?php endwhile; ?> <?php endif; ?>

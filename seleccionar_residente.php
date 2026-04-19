@@ -42,9 +42,9 @@ if ($rol == "enfermero") {
             header("Location: /raiz-digital/inventario_familiar.php");
             break;
 
-        case "gestion":
-            header("Location: /raiz-digital/views/gestion_view.php");
-            break;
+         case "gestion":
+            header("Location: /raiz-digital/gestion_familiar.php");
+             break;
 
         default:
             header("Location: /raiz-digital/panel_familiar.php");
