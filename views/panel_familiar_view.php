@@ -123,17 +123,25 @@ function irInicio() {
                     
                     <p><?php echo $r['nombre']; ?></p>
 
-                    <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
-                        <button>Ver historial</button>
-                    </a>
+                <a
+          href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial"
+        >
+          <button>Ver historial</button>
+        </a>
 
-                    <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
-                        <button>Ver inventario</button>
-                    </a>
+        <!-- INVENTARIO -->
+        <a
+          href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario"
+        >
+          <button>Ver inventario</button>
+        </a>
 
-                    <a href="../gestion_familiar.php?id_residente=<?php echo $r['id_residente']; ?>">
-                        <button>Gestión familiar</button>
-                    </a>
+        <!-- GESTION -->
+        <a
+          href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion"
+        >
+          <button>Gestión familiar</button>
+        </a>
 
                 </div>
 

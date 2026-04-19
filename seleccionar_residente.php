@@ -43,7 +43,7 @@ if ($rol == "enfermero") {
             break;
 
          case "gestion":
-            header("Location: /raiz-digital/gestion_familiar.php");
+            header("Location: /raiz-digital/gestion_familiar_familiar.php");
              break;
 
         default:

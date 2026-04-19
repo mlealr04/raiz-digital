@@ -1,0 +1,21 @@
+<?php
+session_start();
+
+$id_residente = $_SESSION['id_residente'] ?? null;
+
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+if ($conexion->connect_error) {
+    die("Error conexión");
+}
+
+// traer actividades del residente
+$sql = "SELECT * FROM actividades 
+        WHERE id_residente = '$id_residente'
+        ORDER BY fecha ASC, hora ASC";
+
+$result = $conexion->query($sql);
+
+// enviar a vista de familiar
+include("views/gestion_view_familiar.php");
+?>
