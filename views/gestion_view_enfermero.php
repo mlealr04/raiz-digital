@@ -270,18 +270,18 @@ hr {
 
         </div>
 
-    </div>
-<?php
-$sqlAvisos = "SELECT * FROM avisos 
+    
+        <?php
+        $sqlAvisos = "SELECT * FROM avisos 
               WHERE id_residente = '$id_residente'";
-$avisos = $conexion->query($sqlAvisos);
-?>
-    <div class="agenda">
-    <div class="agenda-title">🔔 AVISOS</div>
+        $avisos = $conexion->query($sqlAvisos);
+        ?>
+        <div class="agenda">
+        <div class="agenda-title">🔔 AVISOS</div>
 
-    <a href="views/crear_aviso.html">
+        <a href="views/crear_aviso.html">
         <button>➕ Crear Aviso</button>
-    </a>
+        </a>
 
     <?php if ($avisos && $avisos->num_rows > 0): ?>
         <?php while($a = $avisos->fetch_assoc()): ?>
@@ -299,7 +299,7 @@ $avisos = $conexion->query($sqlAvisos);
     <?php endif; ?>
     </div>
     </div>
-</div>
-
+    </div>
+ </div>
 </body>
 </html>

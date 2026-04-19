@@ -179,13 +179,14 @@ hr {
             <?php endif; ?>
 
         </div>
-<?php
-$sqlAvisos = "SELECT * FROM avisos 
-              WHERE id_residente = '$id_residente'";
-$avisos = $conexion->query($sqlAvisos);
-?>
 
-<div class="agenda">
+    <?php
+    $sqlAvisos = "SELECT * FROM avisos 
+              WHERE id_residente = '$id_residente'";
+    $avisos = $conexion->query($sqlAvisos);
+    ?>
+
+    <div class="agenda">
     <div class="agenda-title">🔔 AVISOS</div>
 
     <?php if ($avisos && $avisos->num_rows > 0): ?>
@@ -202,7 +203,7 @@ $avisos = $conexion->query($sqlAvisos);
     <?php else: ?>
         <p>No hay avisos</p>
     <?php endif; ?>
-</div>
+    </div>
     </div>
 
 </div>
