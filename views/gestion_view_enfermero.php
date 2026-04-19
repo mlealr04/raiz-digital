@@ -269,7 +269,7 @@ hr {
             <div class="agenda">
     <div class="agenda-title">📝 MIS NOTAS</div>
 
-    <a href="../views/crear_nota.html">
+    <a href="crear_nota.html">
         <button>➕ Crear Nota</button>
     </a>
 
@@ -286,7 +286,6 @@ hr {
         <p>No hay notas</p>
     <?php endif; ?>
 </div>
-
         <?php
         $sqlAvisos = "SELECT * FROM avisos 
               WHERE id_residente = '$id_residente'";
