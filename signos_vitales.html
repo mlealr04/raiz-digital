@@ -1,86 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Signos Vitales</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Signos Vitales</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!---------------------------->
+    <header class="top-bar">
+      <span>RAÍZ DIGITAL</span>
+    </header>
+    <!---------------------------->
 
-<!---------------------------->
-<header class="top-bar">
-        <span>RAÍZ DIGITAL</span>
-</header>
-<!---------------------------->
+    <h1>Signos Vitales</h1>
 
-<h1>Signos Vitales</h1>
+    <div class="card">
+      <form id="formSignos">
+        <input name="presion" placeholder="Presión" />
+        <input name="temperatura" placeholder="Temperatura" />
+        <input name="frecuencia_cardiaca" placeholder="Frecuencia Cardiaca" />
+        <input
+          name="frecuencia_respiratoria"
+          placeholder="Frecuencia Respiratoria"
+        />
+        <input name="oxigeno" placeholder="Oxígeno" />
+        <input name="glucosa" placeholder="Glucosa" />
+        <input name="observaciones" placeholder="Observaciones" />
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
 
-<div class="card">
-<form id="formSignos">
-    <input name="presion" placeholder="Presión">
-    <input name="temperatura" placeholder="Temperatura">
-    <input name="frecuencia_cardiaca" placeholder="Frecuencia Cardiaca">
-    <input name="frecuencia_respiratoria" placeholder="Frecuencia Respiratoria">
-    <input name="oxigeno" placeholder="Oxígeno">
-    <input name="glucosa" placeholder="Glucosa">
-    <input name="observaciones" placeholder="Observaciones">
-    <button type="submit">Guardar</button>
-</form>
-</div>
+    <div class="cardtwo">
+      <h3>Historial</h3>
+      <table border="1" id="tabla">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Presión</th>
+            <th>Temp</th>
+            <th>frecuencia Cardiaca</th>
+            <th>Frecuencia Respiratoria</th>
+            <th>Oxigeno</th>
+            <th>Glucosa</th>
+            <th>Obs</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-<div class="cardtwo">
-<h3>Historial</h3>
-<table border="1" id="tabla">
-<thead>
-<tr>
-<th>Fecha</th>
-<th>Hora</th>
-<th>Presión</th>
-<th>Temp</th>
-<th>frecuencia Cardiaca</th>
-<th>Frecuencia Respiratoria</th>
-<th>Oxigeno</th>
-<th>Glucosa</th>
-<th>Obs</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
+    <div style="text-align: center; margin-top: 20px">
+      <a href="panel_residente.php" class="back-btn">REGRESAR AL MENÚ</a>
+    </div>
 
-<div style="text-align: center; margin-top: 20px;">
-            <a href="panel_residente.php" class="back-btn">REGRESAR AL MENÚ</a>
-        </div>
+    <script>
+      //  GUARDAR
+      document
+        .getElementById("formSignos")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-<script>
-//  GUARDAR
-document.getElementById("formSignos").addEventListener("submit", function(e) {
-    e.preventDefault();
+          const formData = new FormData(this);
 
-    const formData = new FormData(this);
+          fetch("signos_vitales.php", {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              alert("Guardado");
+              cargarHistorial();
+            });
+        });
 
-    fetch("signos_vitales.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        alert("Guardado");
-        cargarHistorial();
-    });
-});
+      //  CARGAR HISTORIAL
+      function cargarHistorial() {
+        fetch("signos_vitales.php")
+          .then((res) => res.json())
+          .then((data) => {
+            const tbody = document.querySelector("#tabla tbody");
+            tbody.innerHTML = "";
 
-//  CARGAR HISTORIAL
-function cargarHistorial() {
-    fetch("signos_vitales.php")
-    .then(res => res.json())
-    .then(data => {
-
-        const tbody = document.querySelector("#tabla tbody");
-        tbody.innerHTML = "";
-
-        data.forEach(row => {
-            tbody.innerHTML += `
+            data.forEach((row) => {
+              tbody.innerHTML += `
                 <tr>
                     <td>${row.fecha}</td>
                     <td>${row.hora}</td>
@@ -93,14 +96,12 @@ function cargarHistorial() {
                     <td>${row.observaciones}</td>
                 </tr>
             `;
-        });
-    });
-}
+            });
+          });
+      }
 
-// cargar al inicio
-cargarHistorial();
-
-</script>
-
-</body>
+      // cargar al inicio
+      cargarHistorial();
+    </script>
+  </body>
 </html>
