@@ -228,7 +228,7 @@ hr {
                             <div style="color: <?php echo $color; ?>">
                                 <?php echo $row['estado']; ?>
                             </div>
-
+                            <?php
                              // 🔥 GUARDAR FILTROS
                                 $fecha_nota = $_GET['fecha_nota'] ?? '';
                                 $fecha_aviso = $_GET['fecha_aviso'] ?? '';
@@ -247,7 +247,7 @@ hr {
                                 href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado&fecha_nota=<?php echo $fecha_nota; ?>&fecha_aviso=<?php echo $fecha_aviso; ?>">
                                 ✖ Rechazar
                                 </a>
-                                
+
                             <a href="/raiz-digital/eliminar_actividad.php?id=<?php echo $row['id_actividad']; ?>" 
                                onclick="return confirm('¿Eliminar esta actividad?')"
                                style="color:red;">
