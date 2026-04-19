@@ -229,20 +229,25 @@ hr {
                                 <?php echo $row['estado']; ?>
                             </div>
 
-                            <br>
+                             // 🔥 GUARDAR FILTROS
+                                $fecha_nota = $_GET['fecha_nota'] ?? '';
+                                $fecha_aviso = $_GET['fecha_aviso'] ?? '';
+                                ?>
 
-                            <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
+                                <div style="color: <?php echo $color; ?>">
+                                    <?php echo $row['estado']; ?>
+                                </div>
+
+                                <a class="btn confirmar"
+                                href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado&fecha_nota=<?php echo $fecha_nota; ?>&fecha_aviso=<?php echo $fecha_aviso; ?>">
                                 ✔ Confirmar
-                            </a>
+                                </a>
 
-                            <br>
-
-                            <a href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
+                                <a class="btn rechazar"
+                                href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado&fecha_nota=<?php echo $fecha_nota; ?>&fecha_aviso=<?php echo $fecha_aviso; ?>">
                                 ✖ Rechazar
-                            </a>
-
-                            <br>
-
+                                </a>
+                                
                             <a href="/raiz-digital/eliminar_actividad.php?id=<?php echo $row['id_actividad']; ?>" 
                                onclick="return confirm('¿Eliminar esta actividad?')"
                                style="color:red;">
