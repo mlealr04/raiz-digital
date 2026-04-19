@@ -1,27 +1,54 @@
 <?php
 session_start();
 
-$_SESSION['id_residente'] = $_GET['id_residente'];
+if (!isset($_GET['id_residente']) || !isset($_GET['destino'])) {
+    die("Datos incompletos");
+}
 
+$_SESSION['id_residente'] = $_GET['id_residente'];
 $destino = $_GET['destino'];
 
-switch ($destino) {
-    case "historial":
-        header("Location: historial_familiar.php");
-        break;
+//  DETECTAR ROL
+$rol = $_SESSION['rol'] ?? null;
 
-    case "inventario":
-        header("Location: inventario_familiar.php");
-        break;
+if ($rol == "enfermero") {
 
-    case "gestion":
-        header("Location: gestion_familiar.php");
-        break;
+    switch ($destino) {
+     case "gestion":
+            header("Location: /raiz-digital/gestion_familiar.php");
+             break;
 
-    default:
-        echo "Destino no válido";
-        break;
+        case "signos":
+            header("Location: /raiz-digital/signos_vitales.php");
+            break;
+
+        default:
+            header("Location: /raiz-digital/panel_residente.php");
+            break;
+    }
+
+} else if ($rol == "familiar") {
+
+    switch ($destino) {
+        case "historial":
+            header("Location: /raiz-digital/views/historial_view.php");
+            break;
+
+        case "inventario":
+            header("Location: /raiz-digital/inventario_familiar.php");
+            break;
+
+        case "gestion":
+            header("Location: /raiz-digital/views/gestion_view.php");
+            break;
+
+        default:
+            header("Location: /raiz-digital/panel_familiar.php");
+            break;
+    }
+
+} else {
+    echo "Rol no válido";
 }
 
 exit();
-?>
