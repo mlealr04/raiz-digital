@@ -116,22 +116,21 @@ button:hover {
 
 <body>
 
-<div class="card">
-<h2>Ingresar a Residente</h2>
 
-<a href="panel_enfermero_ingresar_residente.php">
-    <button>Buscar residente</button>
-</a>
-</div>
 <div class="header">
-    
     ☰ RAÍZ DIGITAL > BUSCAR RESIDENTE
 </div>
 
 <div class="container">
 
     <h1>Buscar Residente</h1>
+<form method="POST" class="buscador">
 
+    <input type="text" name="busqueda" placeholder="ID o Nombre del residente" required>
+
+    <button type="submit">Buscar</button>
+
+</form>
     <?php
     // CASO 2: BUSCAR
     if (isset($_POST['busqueda'])) {
