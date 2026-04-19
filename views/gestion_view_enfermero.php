@@ -276,7 +276,34 @@ hr {
         </div>
 
     </div>
+<?php
+$sqlAvisos = "SELECT * FROM avisos 
+              WHERE id_residente = '$id_residente'";
+$avisos = $conexion->query($sqlAvisos);
+?>
+    <div class="agenda">
+    <div class="agenda-title">🔔 AVISOS</div>
 
+    <a href="views/crear_aviso.html">
+        <button>➕ Crear Aviso</button>
+    </a>
+
+    <?php if ($avisos && $avisos->num_rows > 0): ?>
+        <?php while($a = $avisos->fetch_assoc()): ?>
+            <div class="agenda-item">
+                <div>
+                    <strong><?php echo $a['titulo']; ?></strong><br>
+                    <?php echo $a['descripcion']; ?><br>
+                    Cantidad: <?php echo $a['cantidad']; ?><br>
+                    Fecha: <?php echo $a['fecha']; ?>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No hay avisos</p>
+    <?php endif; ?>
+    </div>
+    </div>
 </div>
 
 </body>
