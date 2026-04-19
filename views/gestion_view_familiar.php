@@ -143,27 +143,31 @@ hr {
                             </div>
                         </div>
 
-                        <div class="estado">
-                            <?php
-                            $color = "gray";
-                            if ($row['estado'] == "confirmado") $color = "green";
-                            if ($row['estado'] == "rechazado") $color = "red";
-                            ?>
+                      <div class="estado">
+                                <?php
+                                $color = "gray";
+                                if ($row['estado'] == "confirmado") $color = "green";
+                                if ($row['estado'] == "rechazado") $color = "red";
 
-                            <div style="color: <?php echo $color; ?>">
-                                <?php echo $row['estado']; ?>
+                                // 🔥 GUARDAR FILTROS
+                                $fecha_nota = $_GET['fecha_nota'] ?? '';
+                                $fecha_aviso = $_GET['fecha_aviso'] ?? '';
+                                ?>
+
+                                <div style="color: <?php echo $color; ?>">
+                                    <?php echo $row['estado']; ?>
+                                </div>
+
+                                <a class="btn confirmar"
+                                href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado&fecha_nota=<?php echo $fecha_nota; ?>&fecha_aviso=<?php echo $fecha_aviso; ?>">
+                                ✔ Confirmar
+                                </a>
+
+                                <a class="btn rechazar"
+                                href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado&fecha_nota=<?php echo $fecha_nota; ?>&fecha_aviso=<?php echo $fecha_aviso; ?>">
+                                ✖ Rechazar
+                                </a>
                             </div>
-
-                            <a class="btn confirmar"
-                               href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=confirmado">
-                               ✔ Confirmar
-                            </a>
-
-                            <a class="btn rechazar"
-                               href="/raiz-digital/confirmar_actividad.php?id=<?php echo $row['id_actividad']; ?>&estado=rechazado">
-                               ✖ Rechazar
-                            </a>
-                        </div>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>

@@ -1,28 +1,20 @@
 <?php
 session_start();
 
-$conexion = new mysqli("localhost", "root", "", "raizdigital");
-
 $id = $_GET['id'];
 $estado = $_GET['estado'];
 
-// actualizar estado
-$sql = "UPDATE actividades 
-        SET estado = '$estado' 
-        WHERE id_actividad = '$id'";
+$fecha_nota = $_GET['fecha_nota'] ?? '';
+$fecha_aviso = $_GET['fecha_aviso'] ?? '';
 
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
+
+$sql = "UPDATE actividades SET estado='$estado' WHERE id_actividad='$id'";
 $conexion->query($sql);
 
-// DETECTAR ROL
-$rol = $_SESSION['rol'] ?? null;
-
-if ($rol == "enfermero") {
-    header("Location: /raiz-digital/gestion_familiar.php");
-} else if ($rol == "familiar") {
-    header("Location: /raiz-digital/gestion_familiar_familiar.php");
+// 🔥 REDIRECCIÓN CON FILTROS
+if ($_SESSION['rol'] == "enfermero") {
+    header("Location: /raiz-digital/gestion_familiar.php?fecha_nota=$fecha_nota&fecha_aviso=$fecha_aviso");
 } else {
-    echo "Rol no válido";
+    header("Location: /raiz-digital/gestion_familiar_familiar.php?fecha_nota=$fecha_nota&fecha_aviso=$fecha_aviso");
 }
-
-exit();
-?>
