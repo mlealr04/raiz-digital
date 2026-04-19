@@ -282,16 +282,9 @@ $notas = $conexion->query($sqlNotas);
         <input type="date" name="fecha_nota">
         <button>Filtrar</button>
     </form>
-<form action="/raiz-digital/crear_nota.php" method="POST" style="margin-bottom:15px;">
-
-    <textarea name="contenido" placeholder="Escribir nota..." required
-        style="width:100%; padding:10px; border-radius:10px;"></textarea>
-
-    <br><br>
-
-    <button type="submit">➕ Crear Nota</button>
-
-</form>
+    <a href="/raiz-digital/views/crear_nota.html">
+    <button>➕ Crear Nota</button>
+    </a>
     <?php if ($notas && $notas->num_rows > 0): ?>
 
         <?php while($n = $notas->fetch_assoc()): ?>
