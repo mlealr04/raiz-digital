@@ -269,7 +269,7 @@ hr {
             <div class="agenda">
     <div class="agenda-title">📝 MIS NOTAS</div>
 
-    <a href="crear_nota.html">
+    <a href="views/crear_nota.html">
         <button>➕ Crear Nota</button>
     </a>
 
@@ -294,7 +294,7 @@ hr {
         <div class="agenda">
         <div class="agenda-title">🔔 AVISOS</div>
 
-        <a href="crear_aviso.html">
+        <a href="views/crear_aviso.html">
         <button>➕ Crear Aviso</button>
         </a>
 
