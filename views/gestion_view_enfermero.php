@@ -259,18 +259,34 @@ hr {
 
         </div>
 
-        <!-- (DISEÑO DE TU EQUIPO) -->
-        <div class="cards">
+       <?php
+            $sqlNotas = "SELECT * FROM notas 
+                        WHERE id_residente = '$id_residente'
+                        ORDER BY fecha DESC";
 
-          
-            <div class="card" onclick="window.location.href='/raiz-digital/views/notas.html'">
-                NOTAS
-                <div class="icon">📝</div>
+            $notas = $conexion->query($sqlNotas);
+            ?>
+            <div class="agenda">
+    <div class="agenda-title">📝 MIS NOTAS</div>
+
+    <a href="../views/crear_nota.html">
+        <button>➕ Crear Nota</button>
+    </a>
+
+    <?php if ($notas && $notas->num_rows > 0): ?>
+        <?php while($n = $notas->fetch_assoc()): ?>
+            <div class="agenda-item">
+                <div>
+                    <?php echo $n['contenido']; ?><br>
+                    <small><?php echo $n['fecha']; ?></small>
+                </div>
             </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No hay notas</p>
+    <?php endif; ?>
+</div>
 
-        </div>
-
-    
         <?php
         $sqlAvisos = "SELECT * FROM avisos 
               WHERE id_residente = '$id_residente'";

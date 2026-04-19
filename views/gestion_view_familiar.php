@@ -187,9 +187,9 @@ hr {
     ?>
 
     <div class="agenda">
-    <div class="agenda-title">🔔 AVISOS</div>
+        <div class="agenda-title">🔔 AVISOS</div>
 
-    <?php if ($avisos && $avisos->num_rows > 0): ?>
+        <?php if ($avisos && $avisos->num_rows > 0): ?>
         <?php while($a = $avisos->fetch_assoc()): ?>
             <div class="agenda-item">
                 <div>
@@ -200,11 +200,42 @@ hr {
                 </div>
             </div>
         <?php endwhile; ?>
-    <?php else: ?>
+        <?php else: ?>
         <p>No hay avisos</p>
+        <?php endif; ?>
+        </div>
+     </div>
+
+    <?php
+        $id_usuario = $_SESSION['id_usuario'];
+
+        $sqlNotas = "SELECT * FROM notas 
+                    WHERE id_residente = '$id_residente'
+                    AND id_usuario = '$id_usuario'
+                    ORDER BY fecha DESC";
+
+        $notas = $conexion->query($sqlNotas);
+        ?>
+        <div class="agenda">
+    <div class="agenda-title">📝 MIS NOTAS</div>
+
+    <a href="../views/crear_nota.html">
+        <button>➕ Crear Nota</button>
+    </a>
+
+    <?php if ($notas && $notas->num_rows > 0): ?>
+        <?php while($n = $notas->fetch_assoc()): ?>
+            <div class="agenda-item">
+                <div>
+                    <?php echo $n['contenido']; ?><br>
+                    <small><?php echo $n['fecha']; ?></small>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No hay notas</p>
     <?php endif; ?>
-    </div>
-    </div>
+</div>
 
 </div>
 
