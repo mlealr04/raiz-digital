@@ -172,63 +172,86 @@ hr {
         </div>
 
         <!-- 🔔 AVISOS -->
-        <?php
-        $sqlAvisos = "SELECT * FROM avisos 
-                      WHERE id_residente = '$id_residente'";
-        $avisos = $conexion->query($sqlAvisos);
-        ?>
+                    <?php
+            $sqlAvisos = "SELECT * FROM avisos 
+                        WHERE id_residente = '$id_residente'";
 
-        <div class="agenda">
-            <div class="agenda-title">🔔 AVISOS</div>
+            if (isset($_GET['fecha_aviso']) && $_GET['fecha_aviso'] != '') {
+                $fechaAviso = $_GET['fecha_aviso'];
+                $sqlAvisos .= " AND DATE(fecha) = '$fechaAviso'";
+            }
 
-            <?php if ($avisos && $avisos->num_rows > 0): ?>
-                <?php while($a = $avisos->fetch_assoc()): ?>
-                    <div class="agenda-item">
-                        <div>
-                            <strong><?php echo $a['titulo']; ?></strong><br>
-                            <?php echo $a['descripcion']; ?><br>
-                            Cantidad: <?php echo $a['cantidad']; ?><br>
-                            Fecha: <?php echo $a['fecha']; ?>
+            $sqlAvisos .= " ORDER BY fecha DESC";
+
+            $avisos = $conexion->query($sqlAvisos);
+            ?>
+
+            <div class="agenda">
+                <div class="agenda-title">🔔 AVISOS</div>
+
+                <form method="GET">
+                    <input type="date" name="fecha_aviso">
+                    <button>Filtrar</button>
+                </form>
+
+                <?php if ($avisos && $avisos->num_rows > 0): ?>
+                    <?php while($a = $avisos->fetch_assoc()): ?>
+                        <div class="agenda-item">
+                            <div>
+                                <strong><?php echo $a['titulo']; ?></strong><br>
+                                <?php echo $a['descripcion']; ?><br>
+                                Cantidad: <?php echo $a['cantidad']; ?><br>
+                                Fecha: <?php echo $a['fecha']; ?>
+                            </div>
                         </div>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>No hay avisos</p>
-            <?php endif; ?>
-        </div>
-
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No hay avisos</p>
+                <?php endif; ?>
+            </div>
         <!-- 📝 MIS NOTAS -->
         <?php
-        $id_usuario = $_SESSION['id_usuario'];
+$id_usuario = $_SESSION['id_usuario'];
 
-        $sqlNotas = "SELECT * FROM notas 
-                     WHERE id_residente = '$id_residente'
-                     AND id_usuario = '$id_usuario'
-                     ORDER BY fecha DESC";
+$sqlNotas = "SELECT * FROM notas 
+             WHERE id_residente = '$id_residente'
+             AND id_usuario = '$id_usuario'";
 
-        $notas = $conexion->query($sqlNotas);
-        ?>
+if (isset($_GET['fecha_nota']) && $_GET['fecha_nota'] != '') {
+    $fechaNota = $_GET['fecha_nota'];
+    $sqlNotas .= " AND DATE(fecha) = '$fechaNota'";
+}
 
-        <div class="agenda">
-            <div class="agenda-title">📝 MIS NOTAS</div>
+$sqlNotas .= " ORDER BY fecha DESC";
 
-            <a href="views/crear_nota.html">
-                <button>➕ Crear Nota</button>
-            </a>
+$notas = $conexion->query($sqlNotas);
+?>
 
-            <?php if ($notas && $notas->num_rows > 0): ?>
-                <?php while($n = $notas->fetch_assoc()): ?>
-                    <div class="agenda-item">
-                        <div>
-                            <?php echo $n['contenido']; ?><br>
-                            <small><?php echo $n['fecha']; ?></small>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>No hay notas</p>
-            <?php endif; ?>
-        </div>
+<div class="agenda">
+    <div class="agenda-title">📝 MIS NOTAS</div>
+
+    <a href="/raiz-digital/views/crear_nota.html">
+        <button>➕ Crear Nota</button>
+    </a>
+
+    <form method="GET">
+        <input type="date" name="fecha_nota">
+        <button>Filtrar</button>
+    </form>
+
+    <?php if ($notas && $notas->num_rows > 0): ?>
+        <?php while($n = $notas->fetch_assoc()): ?>
+            <div class="agenda-item">
+                <div>
+                    <?php echo $n['contenido']; ?><br>
+                    <small><?php echo $n['fecha']; ?></small>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No hay notas</p>
+    <?php endif; ?>
+</div>
 
     </div> <!-- 🔥 GRID CIERRA AQUÍ -->
 
