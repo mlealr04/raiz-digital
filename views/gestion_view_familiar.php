@@ -189,10 +189,14 @@ hr {
             <div class="agenda">
                 <div class="agenda-title">🔔 AVISOS</div>
 
-                <form method="GET">
-                    <input type="date" name="fecha_aviso">
-                    <button>Filtrar</button>
-                </form>
+               <form method="GET">
+    <input type="date" name="fecha_aviso" value="<?php echo $_GET['fecha_aviso'] ?? ''; ?>">
+
+    <!-- MANTENER FILTRO DE NOTAS -->
+    <input type="hidden" name="fecha_nota" value="<?php echo $_GET['fecha_nota'] ?? ''; ?>">
+
+    <button>Filtrar</button>
+</form>
 
                 <?php if ($avisos && $avisos->num_rows > 0): ?>
                     <?php while($a = $avisos->fetch_assoc()): ?>
@@ -235,9 +239,13 @@ $notas = $conexion->query($sqlNotas);
     </a>
 
     <form method="GET">
-        <input type="date" name="fecha_nota">
-        <button>Filtrar</button>
-    </form>
+    <input type="date" name="fecha_nota" value="<?php echo $_GET['fecha_nota'] ?? ''; ?>">
+
+    <!-- MANTENER FILTRO DE AVISOS -->
+    <input type="hidden" name="fecha_aviso" value="<?php echo $_GET['fecha_aviso'] ?? ''; ?>">
+
+    <button>Filtrar</button>
+</form>
 
     <?php if ($notas && $notas->num_rows > 0): ?>
         <?php while($n = $notas->fetch_assoc()): ?>

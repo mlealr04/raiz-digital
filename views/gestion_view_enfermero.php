@@ -279,9 +279,14 @@ $notas = $conexion->query($sqlNotas);
     <div class="agenda-title">📝 NOTAS</div>
 
     <form method="GET">
-        <input type="date" name="fecha_nota">
-        <button>Filtrar</button>
-    </form>
+    <input type="date" name="fecha_nota" value="<?php echo $_GET['fecha_nota'] ?? ''; ?>">
+
+    <!-- MANTENER FILTRO DE AVISOS -->
+    <input type="hidden" name="fecha_aviso" value="<?php echo $_GET['fecha_aviso'] ?? ''; ?>">
+
+    <button>Filtrar</button>
+</form>
+
     <a href="/raiz-digital/views/crear_nota.html">
     <button>➕ Crear Nota</button>
     </a>
@@ -350,10 +355,14 @@ $avisos = $conexion->query($sqlAvisos);
         <button>➕ Crear Aviso</button>
     </a>
 
-    <form method="GET">
-        <input type="date" name="fecha_aviso">
-        <button>Filtrar</button>
-    </form>
+   <form method="GET">
+    <input type="date" name="fecha_aviso" value="<?php echo $_GET['fecha_aviso'] ?? ''; ?>">
+
+    <!-- MANTENER FILTRO DE NOTAS -->
+    <input type="hidden" name="fecha_nota" value="<?php echo $_GET['fecha_nota'] ?? ''; ?>">
+
+    <button>Filtrar</button>
+</form>
 
     <?php if ($avisos && $avisos->num_rows > 0): ?>
 
