@@ -14,6 +14,10 @@ $rol = $_SESSION['rol'] ?? null;
 if ($rol == "enfermero") {
 
     switch ($destino) {
+        case "historial":
+            header("Location: /raiz-digital/historial_enfermero.php");
+            break;
+
      case "gestion":
             header("Location: /raiz-digital/gestion_familiar.php");
              break;
