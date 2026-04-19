@@ -1,42 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Panel Familiar</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panel Familiar</title>
+  </head>
+  <body>
+    <h1>Selecciona un residente</h1>
 
-<h1>Selecciona un residente</h1>
-
-<?php if ($residentes->num_rows == 0): ?>
+    <?php if ($residentes->num_rows == 0): ?>
 
     <p>No tienes residentes asignados</p>
 
-<?php else: ?>
+    <?php else: ?> <?php while ($r = $residentes->fetch_assoc()): ?>
 
-    <?php while ($r = $residentes->fetch_assoc()): ?>
+    <div style="border: 1px solid black; margin: 10px; padding: 10px">
+      <p>
+        <strong><?php echo $r['nombre']; ?></strong>
+      </p>
 
-        <div style="border:1px solid black; margin:10px; padding:10px;">
-            
-            <p><strong><?php echo $r['nombre']; ?></strong></p>
+      <a
+        href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial"
+      >
+        <button>Ver historial</button>
+      </a>
 
-            <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=historial">
-                <button>Ver historial</button>
-            </a>
+      <a
+        href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario"
+      >
+        <button>Ver inventario</button>
+      </a>
 
-            <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=inventario">
-                <button>Ver inventario</button>
-            </a>
+      <a
+        href="/raiz-digital/seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion"
+      >
+        <button>Gestión familiar</button>
+      </a>
+    </div>
 
-          <a href="../seleccionar_residente.php?id_residente=<?php echo $r['id_residente']; ?>&destino=gestion">
-            <button>Gestión familiar</button>
-        </a>
-
-        </div>
-
-    <?php endwhile; ?>
-
-<?php endif; ?>
-
-</body>
+    <?php endwhile; ?> <?php endif; ?>
+  </body>
 </html>
