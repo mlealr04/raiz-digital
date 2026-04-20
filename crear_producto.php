@@ -11,9 +11,6 @@ $imagen = $_FILES['imagen']['name'];
 $esp = $_POST['especificaciones'];
 move_uploaded_file($_FILES['imagen']['tmp_name'], "uploads/" . $imagen);
 
-var_dump($id_residente);
-die();
-
 $sql = "INSERT INTO productos 
 (nombre, cantidad, tipo, imagen, especificaciones, id_residente)
 VALUES 
