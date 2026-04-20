@@ -158,11 +158,11 @@ img {
 
 <div class="container">
 
-<div class="grid">
+    <div class="grid">
 
-<div class="list">
+    <div class="list">
 
-<?php if ($productos && $productos->num_rows > 0): ?>
+    <?php if ($productos && $productos->num_rows > 0): ?>
 
     <?php while($p = $productos->fetch_assoc()): ?>
 
@@ -184,22 +184,18 @@ img {
 
             <div class="controls">
 
-                <!-- RESTAR -->
                 <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=restar">
                     <button class="btn">➖</button>
                 </a>
 
-                <!-- SUMAR -->
                 <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=sumar">
                     <button class="btn">➕</button>
                 </a>
 
-                <!-- ELIMINAR -->
                 <a href="/raiz-digital/eliminar_producto.php?id=<?php echo $p['id_producto']; ?>">
                     <button class="btn-delete">🗑</button>
                 </a>
 
-                <!-- EDITAR -->
                 <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>" class="btn-edit">
                     ✏️
                 </a>
@@ -210,9 +206,9 @@ img {
 
     <?php endwhile; ?>
 
-<?php else: ?>
+    <?php else: ?>
 
-    <!-- EMPTY STATE BONITO -->
+    <!-- EMPTY STATE -->
     <div class="empty">
         <div class="icon">📦</div>
         <h2>No hay productos</h2>
@@ -223,22 +219,27 @@ img {
         </a>
     </div>
 
-<?php endif; ?>
+    <?php endif; ?>
 
-</div>
+    </div>
 
-    <!-- BOTONES -->
+
+    <!-- 🔥 BOTÓN SOLO CUANDO HAY PRODUCTOS -->
+    <?php if ($productos && $productos->num_rows > 0): ?>
+
     <div class="side">
-
         <a href="/raiz-digital/views/crear_producto.html">
             <div class="card">➕ PRODUCTO</div>
         </a>
+    </div>
+
+    <?php endif; ?>
+
+    </div>
 
     </div>
 
 </div>
 
-</div>
-
-</body>
+    </body>
 </html>
