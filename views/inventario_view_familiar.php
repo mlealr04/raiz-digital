@@ -5,39 +5,52 @@
 <title>Inventario</title>
 
 <style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI';
+    background: #e9e9e9;
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(to right, #5a4a2f, #c89b4f);
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+/* CONTENEDOR GENERAL */
 .container {
     padding: 40px;
 }
 
-/* 🔥 CUANDO HAY PRODUCTOS */
-.has-products {
-    display: flex;
-    justify-content: flex-start;
-}
-
-/* 🔥 CUANDO NO HAY */
-.empty-mode {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
+/* TARJETA PRINCIPAL (como panel familiar) */
+.panel-card {
+    background: #cfc5b8;
+    padding: 40px;
+    border-radius: 20px;
+    width: 600px;
+    margin: auto;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
 }
 
 /* LISTA */
 .list {
     width: 100%;
-    max-width: 700px;
 }
 
+/* ITEM */
 .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f5efe6;
-    border-radius: 16px;
+    background: #e6ded3;
+    border-radius: 15px;
     padding: 15px 20px;
     margin-bottom: 15px;
-    box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
     transition: 0.2s;
 }
 
@@ -74,13 +87,14 @@ img {
 
 .stock {
     font-size: 14px;
-    color: #666;
+    color: #555;
 }
 
 .esp {
     font-size: 13px;
-    color: #999;
+    color: #888;
 }
+
 /* ESTADO */
 .estado {
     padding: 8px 14px;
@@ -89,19 +103,33 @@ img {
     font-weight: bold;
 }
 
-/* VERDE */
+/* DISPONIBLE */
 .estado.ok {
     background: #d4edda;
     color: #2e7d32;
 }
 
-/* ROJO */
+/* BAJO STOCK */
 .estado.bajo {
     background: #f8d7da;
     color: #c62828;
 }
 
+/* EMPTY */
+.empty {
+    text-align: center;
+    color: #444;
+}
+
+.empty .icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
 </style>
+</head>
+
+<body>
+
 <div class="header">
     <div>☰ RAÍZ DIGITAL > INVENTARIO</div>
     <a href="/raiz-digital/panel_familiar.php" style="color:white;">CASA</a>
@@ -109,7 +137,9 @@ img {
 
 <div class="container">
 
-<div class="grid <?php echo ($productos && $productos->num_rows > 0) ? 'has-products' : 'empty-mode'; ?>">
+<div class="panel-card">
+
+    <h2 style="margin-bottom:20px;">Inventario del residente</h2>
 
     <div class="list">
 
@@ -131,14 +161,11 @@ img {
                     </div>
                 </div>
 
-                <div class="estado 
-                    <?php echo ($p['cantidad'] <= 3) ? 'bajo' : 'ok'; ?>">
-                    
+                <div class="estado <?php echo ($p['cantidad'] <= 3) ? 'bajo' : 'ok'; ?>">
                     <?php echo ($p['cantidad'] <= 3) ? '⚠ Bajo stock' : '✔ Disponible'; ?>
-                
-    </div>
+                </div>
 
-</div>
+            </div>
 
         <?php endwhile; ?>
 
@@ -157,3 +184,6 @@ img {
 </div>
 
 </div>
+
+</body>
+</html>
