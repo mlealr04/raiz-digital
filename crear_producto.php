@@ -8,8 +8,9 @@ $imagen = $_FILES['imagen']['name'];
 $esp = $_POST['especificaciones'];
 move_uploaded_file($_FILES['imagen']['tmp_name'], "uploads/" . $imagen);
 
-$sql = "INSERT INTO productos (nombre, cantidad, tipo, imagen, especificaciones)
-VALUES ('$nombre', '$cantidad', '$tipo', '$imagen', '$esp')";
+$id_residente = $_SESSION['id_residente'];
+$sql = "INSERT INTO productos (nombre, cantidad, tipo, imagen, especificaciones, id_residente)
+VALUES ('$nombre', '$cantidad', '$tipo', '$imagen', '$esp', '$id_residente')";
 $conexion->query($sql);
 
 header("Location: inventario_enfermero.php");
