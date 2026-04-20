@@ -132,7 +132,9 @@ img {
                 <a href="/raiz-digital/eliminar_producto.php?id=<?php echo $p['id_producto']; ?>">
                     <span class="delete">🗑</span>
                 </a>
-
+                <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>">
+                    ✏️
+                </a>
             </div>
 
         </div>
