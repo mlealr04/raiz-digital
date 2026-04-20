@@ -93,7 +93,23 @@ img {
     border-radius: 15px;
     box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
 }
+.btn-delete {
+    background: #f0e6d6;
+    border: none;
+    border-radius: 12px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
+.btn-delete:hover {
+    background: #e57373;
+    color: white;
+    transform: scale(1.1);
+}
+.btn-delete {
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+}
 </style>
 </head>
 
@@ -138,7 +154,9 @@ img {
 
                 <!-- ELIMINAR -->
                 <a href="/raiz-digital/eliminar_producto.php?id=<?php echo $p['id_producto']; ?>">
-                    <span class="delete">🗑</span>
+                    <button class="btn-delete">
+                        <span>🗑</span>
+                    </button>
                 </a>
                 <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>">
                     ✏️
