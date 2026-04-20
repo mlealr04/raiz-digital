@@ -93,28 +93,30 @@ button:hover {
 
     <form action="/raiz-digital/crear_producto.php" method="POST" enctype="multipart/form-data">
 
-       <input type="text" name="especificaciones" 
-        placeholder="Ej: Medicinas → mg | Pañales → talla | Suero → litros">
+    <!-- NOMBRE -->
+    <input type="text" name="nombre" placeholder="Nombre del producto" required>
 
-        <!-- CANTIDAD + TIPO -->
-        <div style="display:flex; gap:10px;">
-            <input type="number" name="cantidad" placeholder="Cantidad" required>
+    <!-- ESPECIFICACIONES -->
+    <input type="text" name="especificaciones" placeholder="Ej: 500mg / Talla M / Adulto">
 
-            <select name="tipo">
-                <option value="piezas">Piezas</option>
-                <option value="cajas">Cajas</option>
-                <option value="botellas">Botellas</option>
-                <option value="paquetes">Paquetes</option>
-            </select>
-        </div>
+    <!-- CANTIDAD + TIPO -->
+    <div style="display:flex; gap:10px;">
+        <input type="number" name="cantidad" placeholder="Cantidad" required>
 
-        <!-- IMAGEN -->
-        <input type="file" name="imagen">
+        <select name="tipo">
+            <option value="piezas">Piezas</option>
+            <option value="cajas">Cajas</option>
+            <option value="botellas">Botellas</option>
+            <option value="paquetes">Paquetes</option>
+        </select>
+    </div>
 
-        <button type="submit">Guardar Producto</button>
+    <!-- IMAGEN -->
+    <input type="file" name="imagen">
 
-    </form>
+    <button type="submit">Guardar Producto</button>
 
+</form>
     <div class="back">
         <a href="/raiz-digital/inventario_enfermero.php">⬅ Regresar</a>
     </div>
