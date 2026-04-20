@@ -111,7 +111,7 @@ img {
                 <img src="/raiz-digital/uploads/<?php echo $p['imagen']; ?>">
                 <div>
                     <strong><?php echo $p['nombre']; ?></strong><br>
-                    Stock: <?php echo $p['cantidad']; ?>
+                     Stock: <?php echo $p['cantidad'] . " " . $p['tipo']; ?>
                 </div>
             </div>
 

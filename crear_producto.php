@@ -3,12 +3,12 @@ $conexion = new mysqli("localhost", "root", "", "raizdigital");
 
 $nombre = $_POST['nombre'];
 $cantidad = $_POST['cantidad'];
-
+$tipo = $_POST['tipo'];
 $imagen = $_FILES['imagen']['name'];
 move_uploaded_file($_FILES['imagen']['tmp_name'], "uploads/" . $imagen);
 
-$sql = "INSERT INTO productos (nombre, cantidad, imagen)
-VALUES ('$nombre', '$cantidad', '$imagen')";
+$sql = "INSERT INTO productos (nombre, cantidad, tipo, imagen)
+VALUES ('$nombre', '$cantidad', '$tipo', '$imagen')";
 
 $conexion->query($sql);
 
