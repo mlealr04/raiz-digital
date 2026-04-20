@@ -1,28 +1,17 @@
 <?php
-session_start();
+$conexion = new mysqli("localhost", "root", "", "raizdigital");
 
-if (!isset($_SESSION['id_enfermero'])) {
-    header("Location: ../login.php");
-    exit();
-}
-?>
+$nombre = $_POST['nombre'];
+$cantidad = $_POST['cantidad'];
+$stock = $_POST['stock_minimo'];
+$consumo = $_POST['consumo_diario'];
 
-<link rel="stylesheet" href="../css/estilos.css">
+$imagen = $_FILES['imagen']['name'];
+move_uploaded_file($_FILES['imagen']['tmp_name'], "uploads/" . $imagen);
 
-<div class="formulario">
+$sql = "INSERT INTO productos (nombre, cantidad, imagen, stock_minimo, consumo_diario, fecha_ultimo_update)
+VALUES ('$nombre', '$cantidad', '$imagen', '$stock', '$consumo', NOW())";
 
-<form action="guardar_producto.php" method="POST" enctype="multipart/form-data">
+$conexion->query($sql);
 
-    <input type="text" name="nombre" placeholder="Nombre del producto" required>
-
-    <textarea name="descripcion" placeholder="Descripción"></textarea>
-
-    <input type="number" name="stock" placeholder="Stock inicial" required>
-
-    <input type="file" name="imagen" required>
-
-    <button class="btn-panel" type="submit">Guardar</button>
-
-</form>
-
-</div>
+header("Location: inventario_enfermero.php");
