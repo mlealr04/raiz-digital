@@ -29,33 +29,76 @@
     max-width: 700px;
 }
 
-/* ITEM */
 .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #aaa;
-    padding: 20px 0;
+    background: #f5efe6;
+    border-radius: 16px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.item:hover {
+    transform: scale(1.02);
 }
 
 /* IZQUIERDA */
 .left {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
-/* IMAGEN (CLAVE DEL PROBLEMA) */
+/* IMAGEN */
 img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border-radius: 12px;
 }
 
+/* INFO */
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.nombre {
+    font-weight: bold;
+    font-size: 18px;
+    color: #3a2e1f;
+}
+
+.stock {
+    font-size: 14px;
+    color: #666;
+}
+
+.esp {
+    font-size: 13px;
+    color: #999;
+}
 /* ESTADO */
 .estado {
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 14px;
     font-weight: bold;
+}
+
+/* VERDE */
+.estado.ok {
+    background: #d4edda;
+    color: #2e7d32;
+}
+
+/* ROJO */
+.estado.bajo {
+    background: #f8d7da;
+    color: #c62828;
 }
 
 </style>
@@ -79,22 +122,23 @@ img {
                 <div class="left">
                     <img src="/raiz-digital/uploads/<?php echo $p['imagen']; ?>">
 
-                    <div>
-                        <strong><?php echo $p['nombre']; ?></strong><br>
-                        Stock: <?php echo $p['cantidad'] . " " . $p['tipo']; ?><br>
-                        <small><?php echo $p['especificaciones']; ?></small>
+                    <div class="info">
+                        <div class="nombre"><?php echo $p['nombre']; ?></div>
+                        <div class="stock">
+                            <?php echo $p['cantidad'] . " " . $p['tipo']; ?>
+                        </div>
+                        <div class="esp"><?php echo $p['especificaciones']; ?></div>
                     </div>
                 </div>
 
-                <div class="estado">
-                    <?php if ($p['cantidad'] <= 3): ?>
-                        <span style="color:red;">⚠ Bajo stock</span>
-                    <?php else: ?>
-                        <span style="color:green;">Disponible</span>
-                    <?php endif; ?>
-                </div>
+                <div class="estado 
+                    <?php echo ($p['cantidad'] <= 3) ? 'bajo' : 'ok'; ?>">
+                    
+                    <?php echo ($p['cantidad'] <= 3) ? '⚠ Bajo stock' : '✔ Disponible'; ?>
+                
+    </div>
 
-            </div>
+</div>
 
         <?php endwhile; ?>
 
