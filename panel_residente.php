@@ -121,7 +121,7 @@ h2 {
             <div class="icon">❤️</div>
         </a>
 
-        <a href="inventario.html" class="card">
+        <a href="inventario.php" class="card">
             INVENTARIO
             <div class="icon">📦</div>
         </a>
