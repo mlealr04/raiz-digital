@@ -20,7 +20,10 @@ body {
 }
 
 .container {
-    padding: 40px;
+   height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .grid {
@@ -112,25 +115,32 @@ img {
 }
 .empty {
     text-align: center;
-    margin-top: 100px;
     color: #555;
+    max-width: 400px;
 }
 
 .empty .icon {
-    font-size: 60px;
+    font-size: 80px;
+    margin-bottom: 15px;
+}
+
+.empty h2 {
+    font-size: 28px;
     margin-bottom: 10px;
 }
 
+.empty p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
 .btn-empty {
-    margin-top: 15px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 12px;
+    padding: 14px 30px;
+    border-radius: 14px;
     background-color: #d1a365;
-    color: black;
+    font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    box-shadow: 0px 6px 12px rgba(0,0,0,0.2);
 }
 
 .btn-empty:hover {
@@ -154,8 +164,8 @@ img {
     <div class="list">
 
        <?php if ($productos && $productos->num_rows > 0): ?>
-
-    <?php while($p = $productos->fetch_assoc()): ?>
+        <?php endif; ?>
+         <?php while($p = $productos->fetch_assoc()): ?>
 
         <div class="item">
 
