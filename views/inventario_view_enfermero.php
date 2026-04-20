@@ -184,18 +184,22 @@ img {
 
             <div class="controls">
 
+                <!-- RESTAR -->
                 <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=restar">
                     <button class="btn">➖</button>
                 </a>
 
+                <!-- SUMAR -->
                 <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=sumar">
                     <button class="btn">➕</button>
                 </a>
 
+                <!-- ELIMINAR -->
                 <a href="/raiz-digital/eliminar_producto.php?id=<?php echo $p['id_producto']; ?>">
                     <button class="btn-delete">🗑</button>
                 </a>
 
+                <!-- EDITAR -->
                 <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>" class="btn-edit">
                     ✏️
                 </a>
@@ -208,7 +212,7 @@ img {
 
 <?php else: ?>
 
-    <!-- EMPTY STATE -->
+    <!-- EMPTY STATE BONITO -->
     <div class="empty">
         <div class="icon">📦</div>
         <h2>No hay productos</h2>
