@@ -2,7 +2,7 @@
     <div>☰ RAÍZ DIGITAL > INVENTARIO</div>
     <a href="/raiz-digital/panel_familiar.php" style="color:white;">CASA</a>
 </div>
-
+<link rel="stylesheet" href="/raiz-digital/styles.css">
 <div class="container">
 
 <div class="grid <?php echo ($productos && $productos->num_rows > 0) ? 'has-products' : 'empty-mode'; ?>">
@@ -29,8 +29,8 @@
                 </div>
             </div>
 
-            <!-- 🔥 SOLO VISUAL (SIN BOTONES) -->
-            <div style="color:#888; font-size:14px;">
+            <!-- SOLO VISUAL -->
+            <div style="font-weight:bold; color:#666;">
                 Disponible
             </div>
 
