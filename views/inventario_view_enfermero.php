@@ -110,6 +110,32 @@ img {
 .btn-delete {
     box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
 }
+.empty {
+    text-align: center;
+    margin-top: 100px;
+    color: #555;
+}
+
+.empty .icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.btn-empty {
+    margin-top: 15px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    background-color: #d1a365;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-empty:hover {
+    transform: scale(1.05);
+}
 </style>
 </head>
 
@@ -127,16 +153,23 @@ img {
     <!-- LISTA -->
     <div class="list">
 
-        <?php while($p = $productos->fetch_assoc()): ?>
+       <?php if ($productos && $productos->num_rows > 0): ?>
+
+    <?php while($p = $productos->fetch_assoc()): ?>
 
         <div class="item">
 
             <div class="left">
-                <img src="/raiz-digital/uploads/<?php echo $p['imagen']; ?>">
+                <?php if (!empty($p['imagen'])): ?>
+                    <img src="/raiz-digital/uploads/<?php echo $p['imagen']; ?>">
+                <?php else: ?>
+                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
+                <?php endif; ?>
+
                 <div>
                     <strong><?php echo $p['nombre']; ?></strong><br>
-                     Stock: <?php echo $p['cantidad'] . " " . $p['tipo']; ?><br>
-<small><?php echo $p['especificaciones']; ?></small>
+                    Stock: <?php echo $p['cantidad'] . " " . $p['tipo']; ?><br>
+                    <small><?php echo $p['especificaciones']; ?></small>
                 </div>
             </div>
 
@@ -154,18 +187,34 @@ img {
 
                 <!-- ELIMINAR -->
                 <a href="/raiz-digital/eliminar_producto.php?id=<?php echo $p['id_producto']; ?>">
-                    <button class="btn-delete">
-                        <span>🗑</span>
-                    </button>
+                    <button class="btn-delete">🗑</button>
                 </a>
-                <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>">
+
+                <!-- EDITAR -->
+                <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>" class="btn-edit">
                     ✏️
                 </a>
+
             </div>
 
         </div>
 
-        <?php endwhile; ?>
+    <?php endwhile; ?>
+
+<?php else: ?>
+
+    <!--  ESTADO VACÍO BONITO -->
+    <div class="empty">
+        <div class="icon">📦</div>
+        <h2>No hay productos</h2>
+        <p>Agrega tu primer insumo para comenzar</p>
+
+        <a href="/raiz-digital/views/crear_producto.html">
+            <button class="btn-empty">➕ Agregar producto</button>
+        </a>
+     </div>
+
+        <?php endif; ?>
 
     </div>
 
