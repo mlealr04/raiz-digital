@@ -86,6 +86,14 @@ img {
     cursor: pointer;
     box-shadow: 0px 8px 15px rgba(0,0,0,0.2);
 }
+img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+}
+
 </style>
 </head>
 
