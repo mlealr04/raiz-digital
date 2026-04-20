@@ -15,7 +15,7 @@ if ($rol == "enfermero") {
 
     switch ($destino) {
         case "historial":
-            header("Location: /raiz-digital/historial_enfermero.php");
+            header("Location: /raiz-digital/inventario.php");
             break;
 
      case "gestion":
