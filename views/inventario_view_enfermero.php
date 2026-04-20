@@ -19,23 +19,39 @@ body {
     justify-content: space-between;
 }
 
+/* 🔥 IMPORTANTE: ya no centramos aquí */
 .container {
-   height: 80vh;
+    padding: 40px;
+}
+
+/* 🔥 GRID BASE */
+.grid {
+    width: 100%;
+}
+
+/* 🔥 CUANDO HAY PRODUCTOS */
+.has-products {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+/* 🔥 CUANDO NO HAY */
+.empty-mode {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.grid {
-    display: flex;
-    gap: 40px;
+    height: 70vh;
 }
 
 /* LISTA */
 .list {
-    width: 60%;
+    width: 100%;
+    max-width: 600px;
 }
 
+/* ITEM */
 .item {
     display: flex;
     justify-content: space-between;
@@ -44,23 +60,30 @@ body {
     padding: 15px 0;
 }
 
+/* IZQUIERDA */
 .left {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
+/* IMAGEN */
 img {
-    width: 60px;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
 }
 
-/* BOTONES + - */
+/* CONTROLES */
 .controls {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+/* BOTONES */
 .btn {
     background: #d1a365;
     border: none;
@@ -69,9 +92,21 @@ img {
     cursor: pointer;
 }
 
-.delete {
-    color: red;
+/* ELIMINAR */
+.btn-delete {
+    background: #f0e6d6;
+    border: none;
+    border-radius: 12px;
+    padding: 8px;
     cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+}
+
+.btn-delete:hover {
+    background: #e57373;
+    color: white;
+    transform: scale(1.1);
 }
 
 /* PANEL DERECHO */
@@ -79,8 +114,10 @@ img {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-top: 50px;
 }
 
+/* CARD */
 .card {
     background: #d1a365;
     padding: 20px;
@@ -89,30 +126,8 @@ img {
     cursor: pointer;
     box-shadow: 0px 8px 15px rgba(0,0,0,0.2);
 }
-img {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
-}
-.btn-delete {
-    background: #f0e6d6;
-    border: none;
-    border-radius: 12px;
-    padding: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-}
 
-.btn-delete:hover {
-    background: #e57373;
-    color: white;
-    transform: scale(1.1);
-}
-.btn-delete {
-    box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
-}
+/* EMPTY */
 .empty {
     text-align: center;
     color: #555;
@@ -134,6 +149,7 @@ img {
     margin-bottom: 20px;
 }
 
+/* BOTÓN EMPTY */
 .btn-empty {
     padding: 14px 30px;
     border-radius: 14px;
@@ -158,88 +174,87 @@ img {
 
 <div class="container">
 
-    <div class="grid">
+    <!-- 🔥 CLASE DINÁMICA -->
+    <div class="grid <?php echo ($productos && $productos->num_rows > 0) ? 'has-products' : 'empty-mode'; ?>">
 
-    <div class="list">
+        <div class="list">
 
-    <?php if ($productos && $productos->num_rows > 0): ?>
+        <?php if ($productos && $productos->num_rows > 0): ?>
 
-    <?php while($p = $productos->fetch_assoc()): ?>
+            <?php while($p = $productos->fetch_assoc()): ?>
 
-        <div class="item">
+                <div class="item">
 
-            <div class="left">
-                <?php if (!empty($p['imagen'])): ?>
-                    <img src="/raiz-digital/uploads/<?php echo $p['imagen']; ?>">
-                <?php else: ?>
-                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
-                <?php endif; ?>
+                    <div class="left">
+                        <?php if (!empty($p['imagen'])): ?>
+                            <img src="/raiz-digital/uploads/<?php echo $p['imagen']; ?>">
+                        <?php else: ?>
+                            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
+                        <?php endif; ?>
 
-                <div>
-                    <strong><?php echo $p['nombre']; ?></strong><br>
-                    Stock: <?php echo $p['cantidad'] . " " . $p['tipo']; ?><br>
-                    <small><?php echo $p['especificaciones']; ?></small>
+                        <div>
+                            <strong><?php echo $p['nombre']; ?></strong><br>
+                            Stock: <?php echo $p['cantidad'] . " " . $p['tipo']; ?><br>
+                            <small><?php echo $p['especificaciones']; ?></small>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+
+                        <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=restar">
+                            <button class="btn">➖</button>
+                        </a>
+
+                        <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=sumar">
+                            <button class="btn">➕</button>
+                        </a>
+
+                        <a href="/raiz-digital/eliminar_producto.php?id=<?php echo $p['id_producto']; ?>">
+                            <button class="btn-delete">🗑</button>
+                        </a>
+
+                        <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>" class="btn-edit">
+                            ✏️
+                        </a>
+
+                    </div>
+
                 </div>
+
+            <?php endwhile; ?>
+
+        <?php else: ?>
+
+            <!-- EMPTY STATE -->
+            <div class="empty">
+                <div class="icon">📦</div>
+                <h2>No hay productos</h2>
+                <p>Agrega tu primer insumo para comenzar</p>
+
+                <a href="/raiz-digital/views/crear_producto.html">
+                    <button class="btn-empty">➕ Agregar producto</button>
+                </a>
             </div>
 
-            <div class="controls">
-
-                <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=restar">
-                    <button class="btn">➖</button>
-                </a>
-
-                <a href="/raiz-digital/actualizar_cantidad.php?id=<?php echo $p['id_producto']; ?>&tipo=sumar">
-                    <button class="btn">➕</button>
-                </a>
-
-                <a href="/raiz-digital/eliminar_producto.php?id=<?php echo $p['id_producto']; ?>">
-                    <button class="btn-delete">🗑</button>
-                </a>
-
-                <a href="/raiz-digital/editar_producto.php?id=<?php echo $p['id_producto']; ?>" class="btn-edit">
-                    ✏️
-                </a>
-
-            </div>
+        <?php endif; ?>
 
         </div>
 
-    <?php endwhile; ?>
+        <!-- BOTÓN SOLO CUANDO HAY PRODUCTOS -->
+        <?php if ($productos && $productos->num_rows > 0): ?>
 
-    <?php else: ?>
+        <div class="side">
+            <a href="/raiz-digital/views/crear_producto.html">
+                <div class="card">➕ PRODUCTO</div>
+            </a>
+        </div>
 
-    <!-- EMPTY STATE -->
-    <div class="empty">
-        <div class="icon">📦</div>
-        <h2>No hay productos</h2>
-        <p>Agrega tu primer insumo para comenzar</p>
-
-        <a href="/raiz-digital/views/crear_producto.html">
-            <button class="btn-empty">➕ Agregar producto</button>
-        </a>
-    </div>
-
-    <?php endif; ?>
-
-    </div>
-
-
-    <!-- 🔥 BOTÓN SOLO CUANDO HAY PRODUCTOS -->
-    <?php if ($productos && $productos->num_rows > 0): ?>
-
-    <div class="side">
-        <a href="/raiz-digital/views/crear_producto.html">
-            <div class="card">➕ PRODUCTO</div>
-        </a>
-    </div>
-
-    <?php endif; ?>
-
-    </div>
+        <?php endif; ?>
 
     </div>
 
 </div>
+
 
     </body>
 </html>
