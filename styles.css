@@ -106,32 +106,29 @@ h1 {
 
 
 /*---------- PANEL ENFERMERO-------------*/
-.card table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-.cardtwo th, .cardtwo td {
+.cardtwo th, 
+.cardtwo td {
     padding: 12px 10px;
     text-align: center;
     border: 1px solid #794515;
 }
 .cardtwo th {
-    background: rgba(255, 255, 255, 0.95);
-    color: black;
+    background: #a56d2e; /* mejor contraste */
+    color: white;
     font-weight: 600;
 }
 .cardtwo table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
     background: rgba(255, 255, 255, 0.95);
     color: black;
     padding: 40px 80px;
     border-radius: 40px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    width: 100%;
     max-width: 720px;
-    margin-top: 100px;
+    margin: 20px auto;
     text-align: center;
-    margin-top: 20px;
 }
 h3 {
     color: #dbdad8d7;
